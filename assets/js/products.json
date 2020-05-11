@@ -1,0 +1,21 @@
+[{
+        "code": "NC-1",
+        "name": "Air Freshener",
+        "category": "Household",
+        "description": "Removes most odours and creates a pleasant, lingering fragrance",
+        "prices": {
+            "5L": 120,
+            "25L": 480
+        }
+    },
+    {
+        "code": "NC-2",
+        "name": "Aluminium & Stainless Steel Cleaner",
+        "category": "Industrial / Automotive",
+        "description": "Cleans stainless steel and aluminium. Washers & sprayers must be acid resistant. Always flush solution thoroughly with water.",
+        "prices": {
+            "5L": 75,
+            "25L": 290
+        }
+    }
+]
