@@ -124,15 +124,12 @@
                     <div class="cart-item-divider"></div> -->
                 </div>
 
-                <div class="col-lg-10 col-md-12 offset-lg-1 row cart-checkout-total-grid">
-                    <div class="col-md-2 offset-md-7">
+                <div class="col-lg-10 col-md-12 offset-lg-1 cart-checkout-total-grid">
+                    <div class="col-lg-2 col-md-3 offset-md-7">
                         <h6>Total Value:</h6>
                     </div>
-                    <div class="col-md-2 cart-checkout-total">
+                    <div class="col-lg-2 cart-checkout-total">
                         <h6>R <span>250</span>.00</h6>
-                    </div>
-                    <div class="col-md-1">
-                        <i class="fal fa-trash-alt"></i>
                     </div>
                 </div>
 
@@ -217,7 +214,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 form-element">
+                            <div class="col-md-12 form-element" id="delivery-notes">
                                 <label>Delivery Notes</label>
                                 <textarea type="text" name="delivery_notes" placeholder="Delivery Notes"></textarea>
                             </div>
@@ -226,8 +223,7 @@
                         <input type="hidden" name="merchant_key" value="">
                         <input type="hidden" name="return_url" value="http://127.0.0.1:5500/success.html">
                         <input type="hidden" name="cancel_url" value="http://127.0.0.1:5500/cart.html">
-                        <input type="hidden" name="notify_url"
-                            value="https://webhook.site/2e484810-c3cd-49f3-82c9-bff0c7abbe22">
+                        <input type="hidden" name="notify_url" value="https://nc-chemicals-admin.herokuapp.com/orders">
 
                         <input type="hidden" name="item_name" value="NC Chemicals Cart">
                         <input type="hidden" name="item_description" value="NC Chemicals Cart">
@@ -251,7 +247,7 @@
             <div class="row cart-payment">
 
                 <div class="col-12 payment-message">
-                    <h3>Almost There Arno...</h3>
+                    <h3>Almost There <span>Arno</span>...</h3>
                     <p>Click the button below to pay securely through Payfast</p>
                     <button class="my-button" onclick="sendPayment()">Pay Now</button>
                 </div>

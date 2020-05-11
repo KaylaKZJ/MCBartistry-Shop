@@ -5,6 +5,7 @@
 $(".nav-menu-toggle, .nav-menu-body-hide").click(() => {
     $(".nav-menu").toggleClass("open")
     $(".nav-menu-body-hide").toggleClass("open")
+    $("html").toggleClass("disabled")
 })
 
 

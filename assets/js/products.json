@@ -1,21 +1,9 @@
 [{
-        "code": "NC-1",
-        "name": "Air Freshener",
-        "category": "Household",
-        "description": "Removes most odours and creates a pleasant, lingering fragrance",
-        "prices": {
-            "5L": 120,
-            "25L": 480
-        }
-    },
-    {
-        "code": "NC-2",
-        "name": "Aluminium & Stainless Steel Cleaner",
-        "category": "Industrial / Automotive",
-        "description": "Cleans stainless steel and aluminium. Washers & sprayers must be acid resistant. Always flush solution thoroughly with water.",
-        "prices": {
-            "5L": 75,
-            "25L": 290
-        }
-    }
-]
+    "code": "pH013",
+    "name": "E.X.F.O. Cleanse",
+    "size": "100ml",
+    "price": "420",
+    "brand": "pHformula",
+    "description": "pHformula EXFO Cleanse 200ml is a gentle exfoliating cleanser which helps to effectively remove makeup and impurities leaving the skin clean and hydrated. It contains specific actives which assist in loosening rough keratinized cells helping to speed up cell renewal and giving the skin a healthy glow. Suitable for all Skin Types.Key ingredients include Lactobionic Acid is a gentle Poly Hydroxy Acid (PHA) which is non-irritating, deeply moisturising due to its water binding properties. Urea is a skin conditioning agent and humectant. Papain Enzyme helps to degrade the corneodesmosomal linkages between damaged or dead cells. Non-comedogenic. Fragrance-free. Paraben-free. No added colour. No lanolin or mineral oil. Not tested on animals.",
+    "use": "Apply on dry skin, even with makeup on. Massage gently over face and neck area, add water, massage more to remove all traces of makeup.  -Rinse thoroughly with water. -Use as a mask by applying a thin layer and leaving it on for 10 minutes before rinsing. Excellent to use as a wipe-on wipe-off eye make-up remover."
+}]

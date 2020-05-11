@@ -1,22 +1,18 @@
 /* FONTS */
 
-@import url('https://fonts.googleapis.com/css?family=Oswald:400,500,600,700|Poppins:300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 /* VARIABLES */
 
 :root {
-    --light-blue: rgba(88, 201, 233, 1);
-    --medium-blue: rgba(56, 83, 216, 1);
-    --dark-blue: rgb(5, 20, 48);
-
-    --light-grey: rgb(225, 225, 225);
-    --medium-grey: rgb(150, 150, 150);
-    --dark-grey: rgba(35, 35, 35, 1);
-
-    --off-white: rgba(247, 247, 247, 1);
-    --shop-border: 0.75px solid var(--light-grey);
-    --container-show: 2px 0px 30px 15px rgba(35, 35, 35, 0.15);
+    --light-blue: rgba(120, 215, 209, 1);
+    --medium-grey: rgba(150, 150, 150, 1);
+    --dark-grey: rgba(51, 51, 51, 1);
+    --salmon: rgba(210, 134, 134, 1);
+    /* --container-show: 2px 0px 30px 15px rgba(35, 35, 35, 0.15); */
+    --shop-border: 0.75px solid var(--medium-grey)
 }
+
 
 /* GENERAL */
 
@@ -25,8 +21,14 @@ html {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    font-family: "Poppins";
-    color: var(--dark-blue);
+    font-family: "Roboto";
+    color: var(--dark-grey);
+}
+
+html.disabled {
+    overflow: hidden;
+    overflow: hidden;
+    max-height: 100%;
 }
 
 section {
@@ -45,9 +47,28 @@ section {
     -ms-border-radius: 1.5rem;
     -o-border-radius: 1.5rem;
     padding: 0.5rem 1.5rem;
-    background-color: var(--dark-blue);
-    border: none;
+    background-color: var(--dark-grey);
+    border: 2px solid var(--dark-grey);
     color: white;
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+    -webkit-transition: 0.3s ease;
+    -moz-transition: 0.3s ease;
+    -ms-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+}
+
+.my-button-alt {
+    cursor: pointer;
+    border-radius: 1.5rem;
+    -webkit-border-radius: 1.5rem;
+    -moz-border-radius: 1.5rem;
+    -ms-border-radius: 1.5rem;
+    -o-border-radius: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    background-color: transparent;
+    border: 2px solid var(--dark-grey);
+    color: var(--dark-grey);
     font-size: 0.9rem;
     transition: 0.3s ease;
     -webkit-transition: 0.3s ease;
@@ -62,6 +83,13 @@ section {
 
 .my-button:hover {
     background-color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+
+.my-button-alt:hover {
+    background-color: var(--dark-grey);
+    color: white;
 }
 
 .my-button a {
@@ -100,7 +128,7 @@ section {
     -moz-transition: 0.4s ease;
     -ms-transition: 0.4s ease;
     -o-transition: 0.4s ease;
-    color: var(--dark-blue);
+    color: var(--dark-grey);
 }
 
 .navbar-icon:hover {
@@ -279,7 +307,7 @@ footer {
 
 footer h6 {
     color: var(--off-white);
-    font-family: "Oswald";
+    font-family: "Roboto";
     font-weight: 500;
     letter-spacing: 0.5px;
     font-size: 1rem;
@@ -338,7 +366,7 @@ footer a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--dark-blue);
+    background: var(--dark-grey);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -483,6 +511,19 @@ footer a:hover {
 
 .card-header h6 i {
     margin-right: 10px;
+    transition: 0.4s ease;
+    -webkit-transition: 0.4s ease;
+    -moz-transition: 0.4s ease;
+    -ms-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+}
+
+.card-header h6.collapsed i {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
 }
 
 .card-header>i {
@@ -491,15 +532,15 @@ footer a:hover {
     cursor: pointer;
 }
 
-.card-filter-categories ul,
-.card-filter-size ul {
+.card-filter-brands ul,
+.card-filter-type ul {
     padding: 0;
     list-style: none;
     padding-left: 1.5rem;
 }
 
-.card-filter-categories li,
-.card-filter-size li {
+.card-filter-brands li,
+.card-filter-type li {
     display: flex;
     justify-content: space-between;
     margin: 0.75rem 0;
@@ -508,8 +549,8 @@ footer a:hover {
     cursor: pointer;
 }
 
-.card-filter-categories li p,
-.card-filter-size p {
+.card-filter-brands li p,
+.card-filter-type p {
     margin: 0;
     transition: 0.3 ease;
     -webkit-transition: 0.3 ease;
@@ -518,23 +559,23 @@ footer a:hover {
     -o-transition: 0.3 ease;
 }
 
-.card-filter-categories li p.active {
+.card-filter-brands li p.active {
     color: var(--light-blue);
     font-weight: 500;
 }
 
-.card-filter-categories li:hover p,
-.card-filter-size li:hover p {
+.card-filter-brands li:hover p,
+.card-filter-type li:hover p {
     color: var(--light-blue);
 }
 
-.card-filter-categories li span,
-.card-filter-size li span {
+.card-filter-brands li span,
+.card-filter-type li span {
     color: var(--medium-grey);
     font-size: 0.8rem;
 }
 
-.card-filter-size .custom-check {
+.card-filter-type .custom-check {
     border: 1px solid var(--light-grey);
     width: 1.1rem;
     height: 1.1rem;
@@ -547,12 +588,12 @@ footer a:hover {
     cursor: pointer;
 }
 
-.card-filter-size li:hover .custom-check {
+.card-filter-type li:hover .custom-check {
     border: 1px solid var(--light-blue);
 }
 
 
-.card-filter-size .custom-check i {
+.card-filter-type .custom-check i {
     font-size: 0.6rem;
     padding: 0.2rem;
     color: var(--light-blue);
@@ -561,7 +602,7 @@ footer a:hover {
 }
 
 .filter-hide-category,
-.filter-hide-size {
+.filter-hide-type {
     display: none;
 }
 
@@ -584,16 +625,21 @@ footer a:hover {
 }
 
 .shop-product-name {
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    font-family: "Oswald";
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-family: "Roboto";
     transition: 0.4s ease;
     -webkit-transition: 0.4s ease;
     -moz-transition: 0.4s ease;
     -ms-transition: 0.4s ease;
     -o-transition: 0.4s ease;
-    color: var(--dark-blue);
+    color: var(--dark-grey);
+    text-align: center;
+}
+
+.shop-product-name span {
+    font-weight: 400;
 }
 
 .shop-product-price {
@@ -606,18 +652,34 @@ footer a:hover {
     -moz-transition: 0.4s ease;
     -ms-transition: 0.4s ease;
     -o-transition: 0.4s ease;
+    text-align: center;
 }
 
 .shop-product-image {
     display: block;
-    width: 70%;
+    width: 40%;
     margin: 0 auto;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
     transition: 0.4s ease;
     -webkit-transition: 0.4s ease;
     -moz-transition: 0.4s ease;
     -ms-transition: 0.4s ease;
     -o-transition: 0.4s ease;
+}
+
+.shop-product-brand {
+    margin-bottom: 0.1rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin: 0;
+    font-family: "Roboto";
+    transition: 0.4s ease;
+    -webkit-transition: 0.4s ease;
+    -moz-transition: 0.4s ease;
+    -ms-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    color: var(--dark-grey);
+    text-align: center;
 }
 
 .shop-product:hover {
@@ -685,7 +747,7 @@ footer a:hover {
 }
 
 .product-name {
-    font-family: "Oswald";
+    font-family: "Roboto";
     font-weight: 500;
     letter-spacing: 0.25px;
     font-size: 1.6rem;
@@ -719,7 +781,7 @@ footer a:hover {
 }
 
 .product-sizes span:hover {
-    color: var(--dark-blue);
+    color: var(--dark-grey);
 }
 
 .product-sizes span.active {
@@ -785,6 +847,47 @@ footer a:hover {
     color: var(--light-blue);
 }
 
+.notify-cart {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(35, 35, 35, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+}
+
+.notify-cart.open {
+    display: flex;
+}
+
+.notify-cart-inner {
+    background-color: white;
+    border: 4px solid var(--light-blue);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.notify-cart-inner h4 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.notify-cart-inner button {
+    margin: 0 1rem;
+}
 
 
 /* ----------------------------------- */
@@ -927,6 +1030,7 @@ footer a:hover {
     align-content: center;
     align-items: center;
     padding: 1.5rem 0;
+    flex-wrap: wrap;
 }
 
 .cart-item>div {
@@ -948,7 +1052,7 @@ footer a:hover {
 
 .cart-item-name h6 {
     margin: 0;
-    font-family: "Oswald";
+    font-family: "Roboto";
     font-weight: 500;
     font-size: 1.1rem;
 }
@@ -963,7 +1067,6 @@ footer a:hover {
 }
 
 .cart-item-quant .product-quant {
-    display: inline-block;
     border: 0.5px solid var(--medium-grey);
 }
 
@@ -996,11 +1099,13 @@ footer a:hover {
 }
 
 .cart-item-remove i:hover {
-    color: var(--dark-blue);
+    color: var(--dark-grey);
 }
 
 .cart-checkout-total-grid {
     padding: 2rem 0;
+    display: flex;
+    font-size: 1rem;
 }
 
 .cart-checkout-total-grid>div {
@@ -1010,8 +1115,7 @@ footer a:hover {
 
 .cart-checkout-total-grid h6 {
     font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--dark-blue);
+    color: var(--dark-grey);
     margin: 0;
 }
 
@@ -1108,6 +1212,11 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+#shipping-form #delivery-notes {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
 /* Payment Section */
 
 .cart-payment {
@@ -1123,7 +1232,7 @@ input[type=number] {
 }
 
 .payment-message h3 {
-    font-family: "Oswald";
+    font-family: "Roboto";
 }
 
 .payment-message p {
@@ -1159,7 +1268,7 @@ input[type=number] {
 }
 
 .section-empty-cart h3 {
-    font-family: "Oswald";
+    font-family: "Roboto";
     margin-bottom: 1rem;
 }
 
@@ -1210,9 +1319,9 @@ input[type=number] {
 }
 
 .contact-details h4 {
-    font-family: "Oswald";
+    font-family: "Roboto";
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .contact-info {
@@ -1325,7 +1434,7 @@ input[type=number] {
 }
 
 .section-success h1 {
-    font-family: "Oswald";
+    font-family: "Roboto";
     font-size: 2rem;
     margin: 1rem;
 }

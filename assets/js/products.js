@@ -8,17 +8,19 @@ const loadShopProducts = () => {
             products = response.data;
 
             products.forEach(product => {
-                priceKeys = Object.keys(product.prices)
                 $(".shop-grid .row").append(
                     `
-                <a class="shop-product col-md-4" href="./product.html#${product.code}" data-product-category="${product.category}" data-product-sizes="${priceKeys}"
+                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}" data-product-price="${product.price}"
                 ">
                     <img class="shop-product-image" src="./assets/images/products/t1.png " alt="">
+                    <p class="shop-product-brand">
+                        ${product.brand}
+                    </p>
                     <h5 class="shop-product-name">
-                        ${product.name}
+                        ${product.name} - <span>${product.size}</span>
                     </h5>
                     <p class="shop-product-price">
-                        R ${product.prices[priceKeys[0]]}
+                        R ${product.price}
                     </p>
                 </a>
             `
@@ -141,3 +143,7 @@ $(document).on("click", ".product-info .product-quant .quant-plus", function () 
     let price = parseInt($(".product-info .product-sizes span.active").attr("data-size-price"));
     $(".product-info .product-price span").html(price * quantity);
 });
+
+$(".notify-cart .my-button-alt").click(() => {
+    $(".notify-cart").removeClass("open")
+})
