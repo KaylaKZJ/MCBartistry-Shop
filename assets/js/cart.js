@@ -155,14 +155,12 @@ const updateCartCount = () => {
     }
 }
 
-
 const addToCart = () => {
 
     // Create Product to add
     let product = {
         code: $(".product-container").attr("data-product-code"),
         quantity: $(".product-quant span").html(),
-        size: $(".product-sizes span.active").html()
     }
 
     // Add to LocalStorage
@@ -207,6 +205,11 @@ const removeCartItem = (code) => {
     localStorage.setItem("cart", JSON.stringify(currentCart));
     checkCartEmpty();
     updateCartCount();
+
+    const cartSize = $(".cart-checkout-grid .cart-item").length;
+    for (let i = 1; i <= cartSize; i++) {
+        $(`.cart-checkout-grid .cart-item:nth-child(${i}`).attr("id", `cart-item-${i}`)
+    }
 }
 
 const loadCart = () => {
@@ -230,16 +233,16 @@ const loadCart = () => {
                     count++;
                     $(".cart-checkout-grid").append(
                         `
-                        <div class="col-lg-10 col-md-12 offset-lg-1 cart-item" id="cart-item-${count}">
+                        <div class="col-md-12 cart-item" id="cart-item-${count}">
                             <div class="col-md-1  cart-item-image">
                                 <img src="./assets/images/products/t1.png" alt="">
                             </div>
                             <div class="col-md-4 col-lg-3 cart-item-name">
-                                <h6>${product.name}</h6>
-                                <p>${product.category}</p>
+                                <p>${product.brand}</p>
+                                <a target="blank" href="./product.html#${product.code}"5>${product.name}</a>
                             </div>
                             <div class="col-md-2 col-sm-4 col-6  cart-item-price">
-                                <p>R <span>${product.prices[currentCart[count-1].size]}</span>.00</p>
+                                <p>R <span>${product.price}</span>.00</p>
                             </div>
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
                                 <div class="product-quant">
@@ -249,13 +252,12 @@ const loadCart = () => {
                                 </div>
                             </div>
                             <div class="col-md-2 col-sm-4 col-12 cart-item-total">
-                                <p>R <span>${product.prices[currentCart[count-1].size] * currentCart[count-1].quantity}</span>.00</p>
+                                <p>R <span>${product.price* currentCart[count-1].quantity}</span>.00</p>
                             </div>
                             <div class="col-md-1 cart-item-remove">
                                 <i class="fal fa-times"></i>
                             </div>
                         </div>
-                        <div class="cart-item-divider"></div>
                         `
                     )
                 })
