@@ -1,31 +1,65 @@
-// Handling any product related logic
+// PRODUCT UTILS
 
 
 // Insert Products in Shop
 const loadShopProducts = () => {
+    let brandsList = [];
+    let typesList = [];
     axios.get("./assets/js/products.json")
         .then(response => {
             products = response.data;
 
             products.forEach(product => {
+                if (!brandsList.includes(product.brand)) {
+                    brandsList.push(product.brand)
+                }
+                if (!typesList.includes(product.type)) {
+                    typesList.push(product.type)
+                }
+
+                // Insert Products
                 $(".shop-grid .row").append(
                     `
-                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}" data-product-price="${product.price}"
-                ">
+                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand.toLowerCase()}"  data-product-price="${product.price}" data-product-type="${product.type.toLowerCase()}"
+                >
                     <img class="shop-product-image" src="./assets/images/products/t1.png " alt="">
                     <p class="shop-product-brand">
                         ${product.brand}
                     </p>
                     <h5 class="shop-product-name">
-                        ${product.name} - <span>${product.size}</span>
+                        ${product.name} | <span>${product.size}</span>
                     </h5>
                     <p class="shop-product-price">
                         R ${product.price}
                     </p>
                 </a>
-            `
+                `
                 )
             });
+
+            // Insert Brands
+            brandsList.forEach(brand => {
+                $("#filter-brand ul").append(
+                    `<li>
+                        <div class="custom-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="">${brand}</p>
+                    </li> `
+                )
+            })
+
+            // Insert Brands
+            typesList.forEach(type => {
+                $("#filter-type ul").append(
+                    `<li>
+                        <div class="custom-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="">${type}</p>
+                    </li> `
+                )
+            })
         })
         .catch(err => console.log(err));
 }
@@ -71,21 +105,13 @@ const loadProduct = () => {
             // Insert Product Details
             document.title = product.name;
             $(".product-container").attr("data-product-code", product.code)
-            $(".product-info .product-category").html(product.category)
-            $(".product-info .product-name").html(product.name)
-            $(".product-info .product-description").html(product.description);
-
-            // Prices
-            priceKeys = Object.keys(product.prices)
-            $(".product-info .product-price span").html(product.prices[priceKeys[0]]);
-
-            // Sizes
-            priceKeys.forEach(key => {
-                $(".product-sizes").append(
-                    `<span data-size-price="${product.prices[key]}">${key}</span>`
-                );
-            })
-            $(".product-sizes span:nth-child(1)").addClass("active")
+            $(".product-brand").html(product.brand)
+            $(".product-name").html(`${product.name} <span>|</span> <span>${product.size}</span> `)
+            $(".product-price span").html(product.price)
+            $(".product-type").html(product.type)
+            $(".product-brief").html(product.brief)
+            $(".product-description").html(product.description);
+            $(".product-use").html(product.use);
         } else {
             location.replace("./shop.html")
         }
@@ -94,8 +120,64 @@ const loadProduct = () => {
     });
 }
 
+// Filter products
+const filterProducts = (filterType) => {
+    console.log(filterType);
+
+    let shopSize = $(".shop-grid .shop-product").length;
+
+    if (filterType === "brand") {
+        let filterBrandCount = $("#filter-brand li").length
+        let activeBrandFilters = [];
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-brand");
+
+        // Get all active filter sizes
+        for (let i = 1; i <= filterBrandCount; i++) {
+            if ($(`#filter-brand li:nth-child(${i})`).hasClass("active")) {
+                activeBrandFilters.push($(`#filter-brand li:nth-child(${i}) p`).html().toLowerCase());
+            }
+        }
+        console.log(activeBrandFilters);
+
+        // hide product if at least one size doesn't match active size filter
+        for (let i = 1; i <= shopSize; i++) {
+            if (activeBrandFilters.length > 0) {
+                let productBrand = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-brand")
+                if (!activeBrandFilters.includes(productBrand)) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-brand");
+                }
+            }
+        }
+
+    }
 
 
+    if (filterType === "type") {
+        let filterTypeCount = $("#filter-type li").length
+        let activeTypeFilters = [];
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-type");
+
+        // Get all active filter sizes
+        for (let i = 1; i <= filterTypeCount; i++) {
+            if ($(`#filter-type li:nth-child(${i})`).hasClass("active")) {
+                activeTypeFilters.push($(`#filter-type li:nth-child(${i}) p`).html().toLowerCase());
+            }
+        }
+        console.log(activeTypeFilters);
+
+        // hide product if at least one size doesn't match active size filter
+        for (let i = 1; i <= shopSize; i++) {
+            if (activeTypeFilters.length > 0) {
+                let productType = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-type");
+                if (!activeTypeFilters.includes(productType)) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-type");
+                }
+            }
+        }
+
+    }
+
+}
 
 
 
@@ -147,3 +229,16 @@ $(document).on("click", ".product-info .product-quant .quant-plus", function () 
 $(".notify-cart .my-button-alt").click(() => {
     $(".notify-cart").removeClass("open")
 })
+
+// Filter Size Check Boxes
+$(document).on("click", ".card-filter-checks li", function () {
+    $(this).toggleClass("active");
+    $(this).find("i").toggle();
+    let filterType = $(this).closest(".card-filter-checks").attr("data-filter-type");
+    filterProducts(filterType);
+});
+
+// Sort Dropdown
+$("#shop-settings-sort").click(() => {
+    $("#shop-settings-sort-dropdown").toggleClass("open")
+});

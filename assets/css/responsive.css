@@ -2,10 +2,11 @@
 
 :root {
     --light-blue: rgba(120, 215, 209, 1);
+    --medium-grey: rgba(150, 150, 150, 1);
     --dark-grey: rgba(51, 51, 51, 1);
     --salmon: rgba(210, 134, 134, 1);
-    --shop-border: 0.75px solid var(--light-grey);
-    --container-show: 2px 0px 30px 15px rgba(35, 35, 35, 0.15);
+    --shop-border: 0.5px solid var(--medium-grey);
+
 }
 
 @media screen and (max-width:991px) {
