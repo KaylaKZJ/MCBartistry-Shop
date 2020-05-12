@@ -99,6 +99,7 @@ const loadProduct = () => {
             $(".product-brief").html(product.brief)
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
+            $(".product-info").attr("data-product-price", product.price);
             hideLoader()
         });
 }
@@ -190,20 +191,6 @@ const filterProducts = (filterType) => {
 // PRODUCTS UI
 
 
-// Toggle Product Size & Price
-$(document).on("click", ".product-sizes span", function () {
-
-    // Toggle Product Size CLass
-    $(".product-sizes span").removeClass("active");
-    $(this).addClass("active");
-
-    // Product Size Price Adjust
-    let price = parseInt($(this).attr("data-size-price"));
-    $(".product-price span").html(price);
-    $(".product-quant span").html(1);
-});
-
-
 // Product Page Quantity Change
 $(document).on("click", ".product-info .product-quant .quant-minus", function () {
     let quantity = parseInt($(this).next().html());
@@ -213,7 +200,7 @@ $(document).on("click", ".product-info .product-quant .quant-minus", function ()
     $(this).next().html(quantity);
 
     // Adjust Price for Quantity
-    let price = parseInt($(".product-info .product-sizes span.active").attr("data-size-price"));
+    let price = parseInt($(".product-info").attr("data-product-price"));
     $(".product-info .product-price span").html(price * quantity);
 });
 
@@ -223,7 +210,7 @@ $(document).on("click", ".product-info .product-quant .quant-plus", function () 
     $(this).prev().html(quantity);
 
     // Adjust Price for Quantity
-    let price = parseInt($(".product-info .product-sizes span.active").attr("data-size-price"));
+    let price = parseInt($(".product-info").attr("data-product-price"));
     $(".product-info .product-price span").html(price * quantity);
 });
 
