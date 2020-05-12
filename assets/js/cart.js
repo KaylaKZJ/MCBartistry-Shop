@@ -64,6 +64,7 @@ $(document).on("click", ".cart-item .product-quant .quant-minus", function () {
     let cartItemTotal = cartItemPrice * quantity;
     $(`#${cartItemID} .cart-item-total span`).html(cartItemTotal);
     calculateCartTotal();
+    updateCartQuantity();
 });
 
 $(document).on("click", ".cart-item .product-quant .quant-plus", function () {
@@ -78,6 +79,7 @@ $(document).on("click", ".cart-item .product-quant .quant-plus", function () {
     let cartItemTotal = cartItemPrice * quantity;
     $(`#${cartItemID} .cart-item-total span`).html(cartItemTotal);
     calculateCartTotal();
+    updateCartQuantity();
 });
 
 // Remove Item From Cart
@@ -95,7 +97,7 @@ $(document).on("click", ".cart-item-remove i", function () {
 const notifyCart = (inCartAlready, product) => {
     $(".notify-cart").addClass("open");
     if (inCartAlready) {
-        $(".notify-cart h4").html("This product is already in your cart")
+        $(".notify-cart h4").html("This product is already in your cart. <br> You can adjust the quantity at checkout")
     } else {
         $(".notify-cart h4 span").html($(".product-name").html())
     }
@@ -137,6 +139,29 @@ const calculateCartTotal = () => {
     }
     cartTotal += deliveryFee;
     $(".cart-checkout-total span").html(cartTotal)
+}
+
+// Update Cart Quanity
+const updateCartQuantity = () => {
+    let currentCart = JSON.parse(localStorage.getItem("cart"));
+    let productCode;
+    let productQuant;
+    const cartSize = $(".cart-checkout-grid .cart-item").length;
+    for (let i = 1; i <= cartSize; i++) {
+        productCode = $(`#cart-item-${i}`).attr("data-product-code");
+        productQuant = $(`#cart-item-${i} .product-quant span`).html();
+        console.log(productCode, productQuant)
+        currentCart.forEach(cartItem => {
+            if (cartItem.code === productCode) {
+                cartItem.quantity = productQuant
+            }
+        });
+    }
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+}
+
+const showCart = () => {
+    console.log(JSON.parse(localStorage.getItem("cart")));
 }
 
 // Delete Cart
@@ -191,12 +216,14 @@ const checkIfItemInCart = (product) => {
     currentCart = JSON.parse(localStorage.getItem("cart"));
     let inCart = false;
     currentCart.forEach(cartItem => {
-        if (cartItem.code === product.code && cartItem.size === product.size) {
+        if (cartItem.code === product.code) {
             inCart = true
         }
     });
     return inCart
 }
+
+
 
 const removeCartItem = (code) => {
     currentCart = JSON.parse(localStorage.getItem("cart"));
@@ -233,7 +260,7 @@ const loadCart = () => {
                     count++;
                     $(".cart-checkout-grid").append(
                         `
-                        <div class="col-md-12 cart-item" id="cart-item-${count}">
+                        <div class="col-md-12 cart-item" id="cart-item-${count}" data-product-code="${product.code}">
                             <div class="col-md-1  cart-item-image">
                                 <img src="./assets/images/products/t1.png" alt="">
                             </div>
