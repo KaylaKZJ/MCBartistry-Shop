@@ -65,6 +65,8 @@ const loadShopProducts = () => {
             $grid = $('.shop-grid .row').isotope({
                 itemSelector: '.shop-product',
             });
+
+            hideLoader()
         })
         .catch(err => console.log(err));
 }
@@ -120,8 +122,7 @@ const loadProduct = () => {
         } else {
             location.replace("./index.html")
         }
-
-
+        hideLoader()
     });
 }
 

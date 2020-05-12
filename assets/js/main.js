@@ -8,6 +8,12 @@ $(".nav-menu-toggle, .nav-menu-body-hide").click(() => {
     $("html").toggleClass("disabled")
 })
 
+
+// Loader
+
+const hideLoader = () => {
+    $(".loader").fadeOut();
+}
 // -------------------
 
 // Footer Insert

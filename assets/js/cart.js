@@ -261,7 +261,7 @@ const loadCart = () => {
                         `
                     )
                 })
-
+                hideLoader()
                 calculateCartTotal();
             })
             .catch(err => console.log(err));
