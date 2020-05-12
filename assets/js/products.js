@@ -6,11 +6,12 @@ let grid;
 const loadShopProducts = () => {
     let brandsList = [];
     let typesList = [];
-    axios.get("./assets/js/products.json")
+    axios.get(`${api_url}/products`)
         .then(response => {
             products = response.data;
 
             products.forEach(product => {
+                console.log(product)
                 if (!brandsList.includes(product.brand)) {
                     brandsList.push(product.brand)
                 }
@@ -21,7 +22,7 @@ const loadShopProducts = () => {
                 // Insert Products
                 $(".shop-grid .row").append(
                     `
-                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand.toLowerCase()}"  data-product-price="${product.price}" data-product-type="${product.type.toLowerCase()}"
+                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}"
                 >
                     <img class="shop-product-image" src="./assets/images/products/t1.png " alt="">
                     <p class="shop-product-brand">
@@ -72,26 +73,6 @@ const loadShopProducts = () => {
 }
 
 
-// Find product by Code
-async function findProduct(productCode) {
-
-    let promise = new Promise((resolve, reject) => {
-        axios.get("./assets/js/products.json")
-            .then(response => {
-                products = response.data;
-                let productFound = products.find(product => product.code === productCode);
-                if (productFound !== undefined) {
-                    resolve(products[products.indexOf(productFound)]);
-                } else {
-                    resolve(undefined)
-                }
-            })
-            .catch(err => console.log(err));
-    })
-
-    let product = await promise;
-    return product
-}
 
 // Insert Product in Product Page
 
@@ -104,11 +85,10 @@ const loadProduct = () => {
     }
     productCode = productCode.substr(1); //Remove #
 
-    let product = {};
-    findProduct(productCode).then(result => {
-        product = result;
+    axios.get(`${api_url}/products/productCode/${productCode}`)
+        .then(response => {
+            const product = response.data;
 
-        if (product !== undefined) {
             // Insert Product Details
             document.title = product.name;
             $(".product-container").attr("data-product-code", product.code)
@@ -119,11 +99,8 @@ const loadProduct = () => {
             $(".product-brief").html(product.brief)
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
-        } else {
-            location.replace("./index.html")
-        }
-        hideLoader()
-    });
+            hideLoader()
+        });
 }
 
 // Isotype Init
@@ -149,7 +126,7 @@ const filterProducts = (filterType) => {
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeBrandFilters.length > 0) {
-                let productBrand = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-brand")
+                let productBrand = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-brand").toLowerCase()
                 if (!activeBrandFilters.includes(productBrand)) {
                     $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-brand");
                 }
@@ -173,7 +150,7 @@ const filterProducts = (filterType) => {
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeTypeFilters.length > 0) {
-                let productType = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-type");
+                let productType = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-type").toLowerCase();
                 if (!activeTypeFilters.includes(productType)) {
                     $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-type");
                 }

@@ -122,7 +122,8 @@ const checkCartEmpty = () => {
     currentCart = JSON.parse(localStorage.getItem("cart"));
     if (currentCart === null || currentCart.length < 1) {
         $(".section-cart").hide();
-        $(".section-empty-cart").addClass("active")
+        $(".section-empty-cart").addClass("active");
+        hideLoader();
         return true
     }
 }
@@ -215,14 +216,13 @@ const removeCartItem = (code) => {
 const loadCart = () => {
 
     if (!checkCartEmpty()) {
-        console.log("load")
         currentCart = JSON.parse(localStorage.getItem("cart"));
         let productCodes = [];
         currentCart.forEach(item => {
             productCodes.push(item.code)
         });
 
-        axios.get("./assets/js/products.json")
+        axios.get(`${api_url}/products`)
             .then(response => {
                 products = response.data;
 
