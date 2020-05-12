@@ -24,7 +24,9 @@ const loadShopProducts = () => {
                     `
                 <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}"
                 >
-                    <img class="shop-product-image" src="./assets/images/products/t1.png " alt="">
+                <div clas="shop-product-image">
+                    <img class="shop-product-image img-fluid" src="./assets/images/products/t1.png " alt="">
+                    </div>
                     <p class="shop-product-brand">
                         ${product.brand}
                     </p>
@@ -62,10 +64,6 @@ const loadShopProducts = () => {
                     </li> `
                 )
             })
-
-            $grid = $('.shop-grid .row').isotope({
-                itemSelector: '.shop-product',
-            });
 
             hideLoader()
         })
