@@ -31,7 +31,7 @@ html.disabled {
 }
 
 section {
-    padding: 2rem 0;
+    padding: 3rem 0;
 }
 
 
@@ -40,11 +40,6 @@ section {
 
 .my-button {
     cursor: pointer;
-    border-radius: 1.5rem;
-    -webkit-border-radius: 1.5rem;
-    -moz-border-radius: 1.5rem;
-    -ms-border-radius: 1.5rem;
-    -o-border-radius: 1.5rem;
     padding: 0.5rem 1.5rem;
     background-color: var(--dark-grey);
     border: 2px solid var(--dark-grey);
@@ -59,11 +54,6 @@ section {
 
 .my-button-alt {
     cursor: pointer;
-    border-radius: 1.5rem;
-    -webkit-border-radius: 1.5rem;
-    -moz-border-radius: 1.5rem;
-    -ms-border-radius: 1.5rem;
-    -o-border-radius: 1.5rem;
     padding: 0.5rem 1.5rem;
     background-color: transparent;
     border: 2px solid var(--dark-grey);
@@ -137,11 +127,11 @@ section {
 }
 
 .navbar>.navbar-icon:nth-child(1) {
-    border-right: 1px solid var(--medium-grey);
+    border-right: var(--shop-border);
 }
 
 .navbar>.navbar-icon:nth-child(3) {
-    border-left: 1px solid var(--medium-grey);
+    border-left: var(--shop-border);
 }
 
 .navbar-icon .cart-count {
@@ -392,6 +382,7 @@ footer a:hover {
 /* Settings */
 .shop-settings {
     border-bottom: var(--shop-border);
+    padding-bottom: 1rem;
 }
 
 .shop-settings>div>div {
@@ -424,7 +415,7 @@ footer a:hover {
 #shop-settings-sort-dropdown {
     background-color: white;
     position: absolute;
-    margin-top: 4rem;
+    margin-top: 3rem;
     z-index: 10;
     height: 0;
     overflow: hidden;
@@ -438,6 +429,7 @@ footer a:hover {
 #shop-settings-sort-dropdown ul {
     padding: 1rem;
     list-style: none;
+    margin: 0;
 }
 
 #shop-settings-sort-dropdown ul li {
@@ -457,12 +449,19 @@ footer a:hover {
 
 #shop-settings-sort-dropdown.open {
     height: auto;
+    border: var(--shop-border);
 }
 
 
 /* Filters */
 .shop-filter {
     padding: 0;
+}
+
+.shop-filter .my-button-alt {
+    border-width: 1px;
+    display: block;
+    margin: 2rem auto 0 auto;
 }
 
 
@@ -581,10 +580,42 @@ footer a:hover {
     display: none;
 }
 
+#filter-price input {
+    border: var(--shop-border);
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    transition: 0.4s ease;
+    -webkit-transition: 0.4s ease;
+    -moz-transition: 0.4s ease;
+    -ms-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+}
+
+#filter-price input:focus {
+    outline: none;
+    border-color: var(--light-blue);
+    box-shadow: none;
+}
+
+#filter-price label {
+    text-align: center;
+    display: block;
+}
+
+#filter-price button {
+    display: block;
+    margin: 1rem auto 0 auto;
+}
+
 .filter-hide-brand,
-.filter-hide-type {
+.filter-hide-type,
+.filter-hide-price {
     display: none;
 }
+
 
 
 
@@ -808,11 +839,6 @@ footer a:hover {
 
 .product-quant {
     border: 1px solid var(--medium-grey);
-    border-radius: 1.5rem;
-    -webkit-border-radius: 1.5rem;
-    -moz-border-radius: 1.5rem;
-    -ms-border-radius: 1.5rem;
-    -o-border-radius: 1.5rem;
     padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
     transition: 0.3s ease;

@@ -2,6 +2,7 @@
 
 
 // Insert Products in Shop
+let grid;
 const loadShopProducts = () => {
     let brandsList = [];
     let typesList = [];
@@ -60,6 +61,10 @@ const loadShopProducts = () => {
                     </li> `
                 )
             })
+
+            $grid = $('.shop-grid .row').isotope({
+                itemSelector: '.shop-product',
+            });
         })
         .catch(err => console.log(err));
 }
@@ -113,12 +118,14 @@ const loadProduct = () => {
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
         } else {
-            location.replace("./shop.html")
+            location.replace("./index.html")
         }
 
 
     });
 }
+
+// Isotype Init
 
 // Filter products
 const filterProducts = (filterType) => {
@@ -137,7 +144,6 @@ const filterProducts = (filterType) => {
                 activeBrandFilters.push($(`#filter-brand li:nth-child(${i}) p`).html().toLowerCase());
             }
         }
-        console.log(activeBrandFilters);
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
@@ -148,7 +154,6 @@ const filterProducts = (filterType) => {
                 }
             }
         }
-
     }
 
 
@@ -163,7 +168,6 @@ const filterProducts = (filterType) => {
                 activeTypeFilters.push($(`#filter-type li:nth-child(${i}) p`).html().toLowerCase());
             }
         }
-        console.log(activeTypeFilters);
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
@@ -175,6 +179,25 @@ const filterProducts = (filterType) => {
             }
         }
 
+    }
+
+
+    if (filterType === "price") {
+        if ($("#filter-price-min").val() === "" || $("#filter-price-max").val() === "") {
+            alert("Please enter a valid price to filter")
+        } else {
+            const priceMin = $("#filter-price-min").val();
+            const priceMax = $("#filter-price-max").val();
+
+
+            // hide product if at least one size doesn't match active size filter
+            for (let i = 1; i <= shopSize; i++) {
+                let productPrice = parseInt($(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-price"));
+                if (productPrice < priceMin || productPrice > priceMax) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-price");
+                }
+            }
+        }
     }
 
 }
