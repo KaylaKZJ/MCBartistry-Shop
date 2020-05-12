@@ -276,7 +276,7 @@ const sendPayment = () => {
         $("#shipping-form input[name='city']").val() + ", " +
         $("#shipping-form input[name='postcode']").val();
 
-    $("#shipping-form input[name='item_description']").val(localStorage.getItem("cart"));
+    $("#shipping-form input[name='item_description']").val(`${localStorage.getItem("cart")}`);
     $("#shipping-form input[name='custom_str1']").val($("#shipping-form input[name='cell_number']").val());
     $("#shipping-form input[name='custom_str2']").val(deliveryAddress);
     $("#shipping-form input[name='custom_str3']").val($("#shipping-form textarea[name='delivery_notes']").val());
@@ -285,4 +285,5 @@ const sendPayment = () => {
     $("#shipping-form input[name='merchant_key']").val("sxou1f0t4mr2c");
 
     $("#shipping-form").submit();
+
 }
