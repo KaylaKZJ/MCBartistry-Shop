@@ -1,5 +1,5 @@
 // Handling any cart related logic
-
+const deliveryFee = 180;
 
 // CART UI
 
@@ -135,6 +135,7 @@ const calculateCartTotal = () => {
     for (let i = 1; i <= cartSize; i++) {
         cartTotal += parseInt($(`#cart-item-${i} .cart-item-total span`).html());
     }
+    cartTotal += deliveryFee;
     $(".cart-checkout-total span").html(cartTotal)
 }
 
@@ -181,7 +182,6 @@ const addToCart = () => {
             localStorage.setItem("cart", JSON.stringify(currentCart));
             notifyCart(false, product);
         }
-
     }
     updateCartCount()
 }
