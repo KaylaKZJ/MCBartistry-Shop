@@ -34,7 +34,7 @@ $("footer").html(
             <span>Design & Developed by <a target="blank"
                     href="http://www.webdacity.co.za/">Webdacity</a></span>
         </div>
-        <div class="col-md-3 footer-links">
+        <div class="col-md-3 mt-3 mt-lg-0  footer-links">
             <h6>About</h6>
             <ul>
                 <li>
