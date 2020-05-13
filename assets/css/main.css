@@ -82,6 +82,7 @@ section {
 
 .my-button-alt:hover {
     background-color: var(--dark-grey);
+    color: whte;
 }
 
 .my-button-alt:hover a {
@@ -104,7 +105,8 @@ section {
 
 }
 
-.my-button:focus {
+.my-button:focus,
+.my-button-alt {
     outline: none;
 }
 
