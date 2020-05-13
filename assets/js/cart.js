@@ -1,5 +1,5 @@
 // Handling any cart related logic
-const deliveryFee = 0;
+const deliveryFee = 180;
 
 // CART UI
 
