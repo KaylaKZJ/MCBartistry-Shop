@@ -25,7 +25,7 @@ const loadShopProducts = () => {
                 <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}"
                 >
                 <div clas="shop-product-image">
-                    <img class="shop-product-image img-fluid" src="./assets/images/products/t1.png " alt="">
+                    <img class="shop-product-image img-fluid" src="${product.productThumbnailUrl}" alt="">
                     </div>
                     <p class="shop-product-brand">
                         ${product.brand}
@@ -98,6 +98,7 @@ const loadProduct = () => {
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
             $(".product-info").attr("data-product-price", product.price);
+            $(".product-image img").attr("src", product.productImageUrls[0])
             hideLoader()
         });
 }
