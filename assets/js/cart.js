@@ -1,5 +1,5 @@
 // Handling any cart related logic
-const deliveryFee = 180;
+const deliveryFee = 0;
 
 // CART UI
 
@@ -295,6 +295,7 @@ const loadCart = () => {
                 })
                 hideLoader()
                 calculateCartTotal();
+                $(".cart-checkout-total-delivery span").html(deliveryFee)
             })
             .catch(err => console.log(err));
     }
