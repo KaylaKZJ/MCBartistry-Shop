@@ -24,58 +24,65 @@ const hideLoader = () => {
 $("footer").html(
     `
     <div class="container">
-            <div class="row">
-                <div class="col-md-6 footer-text">
-                    <h4>NC Chemicals</h4>
-                    <p>NC Chemicals is an industry leader in the production of high-quality industrial, household &
-                        automotive chemical products.
-                    </p>
-                    <span>© Copryright 2020 - NC Chemicals (PTY) LTD.</span>
-                    <span>Design & Developed by <a target="blank"
-                            href="http://www.webdacity.co.za/">Webdacity</a></span>
-                </div>
-                <div class="col-md-3 footer-links">
-                    <h6>About Us</h6>
-                    <ul>
-                        <li>
-                            <a href="">Our Story</a>
-                        </li>
-                        <li>
-                            <a href="">Our Guarantee</a>
-                        </li>
-                        <li>
-                            <a href="">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-contact">
-                    <h6>Get in Touch</h6>
-                    <div class="footer-social">
-                        <a href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </div>
-                    <div class="divider"></div>
-                    <ul>
-                        <li>
-                            <a href="mailto:">info@ncchemicals.co.za</a>
-                        </li>
-                        <li>
-                            <a href="tel:0829014983">082 901 4983</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row">
+        <div class="col-md-6 footer-text">
+            <h4>MCBartistry</h4>
+            <p>MCBartistry - Permanent Makeup Artisan . Makeup Artist . Skin Expert. <br>
+                The MCBartistry shop provides quality products to keep your skin looking amazing.
+            </p>
+            <span>© Copryright 2020 - MCBartistry.</span>
+            <span>Design & Developed by <a target="blank"
+                    href="http://www.webdacity.co.za/">Webdacity</a></span>
+        </div>
+        <div class="col-md-3 footer-links">
+            <h6>About</h6>
+            <ul>
+                <li>
+                    <a target="blank" href="https://www.mcbartistry.com/about.html">My Story</a>
+                </li>
+                <li>
+                    <a target="blank" href="https://www.mcbartistry.com/services.html">Services</a>
+                </li>
+                <li>
+                    <a target="blank" href="https://www.mcbartistry.com/contact.html">Contact</a>
+                </li>
+                <li>
+                    <a target="blank" href="https://www.mcbartistry.com/">Learn More</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3 footer-contact">
+            <h6>Get in Touch</h6>
+            <div class="footer-social">
+                <a target="blank"
+                    href="https://api.whatsapp.com/send?phone=27606362710&text=Hi%20MCBartistry!%20I%27d%20like%20to%20ask%20you%20a%20question?">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a target="blank" href="https://web.facebook.com/MCBartistry/">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a target="blank" href="https://www.instagram.com/mcbartistry/">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a target="blank" href="https://twitter.com/MCBartistry">
+                    <i class="fab fa-twitter"></i>
+                </a>
             </div>
-            <div class="footer-copy">
+            <div class="divider"></div>
+            <ul>
+                <li>
+                    <a href="mailto:info@mcbartistry.com">info@mcbartistry.com</a>
+                </li>
+                <li>
+                    <a href="tel:0606362710">060 636 2710</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-copy">
 
-            </div>
-        </div>`
+    </div>
+</div>`
 )
 
 $(document).ready(() => {

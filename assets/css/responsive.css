@@ -36,6 +36,10 @@
     }
 
     /* SHOP PAGE */
+
+    .shop-product-image img {
+        width: 50%;
+    }
 }
 
 @media screen and (max-width:768px) {
@@ -85,9 +89,12 @@
     }
 
 
-    .cart-item-image img,
     .shop-product-image img {
-        max-width: 30%;
+        width: 30%;
+    }
+
+    .cart-item-image img {
+        width: 25%;
     }
 
     .cart-item-image {
