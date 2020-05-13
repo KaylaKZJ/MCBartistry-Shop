@@ -313,8 +313,8 @@ const sendPayment = () => {
     $("#shipping-form input[name='custom_str2']").val(deliveryAddress);
     $("#shipping-form input[name='custom_str3']").val($("#shipping-form textarea[name='delivery_notes']").val());
     $("#shipping-form input[name='amount']").val(parseInt($(".cart-checkout-total span").html()));
-    $("#shipping-form input[name='merchant_id']").val("10016549");
-    $("#shipping-form input[name='merchant_key']").val("sxou1f0t4mr2c");
+    $("#shipping-form input[name='merchant_id']").val("10792194");
+    $("#shipping-form input[name='merchant_key']").val("iuxisxf1u1g7d");
 
     $("#shipping-form").submit();
 
