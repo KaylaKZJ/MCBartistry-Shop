@@ -93,12 +93,9 @@
         width: 30%;
     }
 
-    .cart-item-image img {
-        width: 25vw;
-    }
-
     .cart-item-image {
         padding: 1rem 0;
+        max-width: 12.5vh;
     }
 
     .cart-headings>div {

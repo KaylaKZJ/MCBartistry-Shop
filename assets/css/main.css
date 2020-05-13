@@ -1129,10 +1129,8 @@ footer a:hover {
 }
 
 .cart-item-image img {
-    width: 70%;
     display: block;
     margin: 0 auto;
-    height: auto;
 }
 
 .cart-item-name {
