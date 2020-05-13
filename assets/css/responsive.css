@@ -94,12 +94,25 @@
     }
 
     .cart-item-image img {
-        width: auto;
-        max-width: 20%;
+        /* width: auto;
+        max-width: 20%; */
     }
 
     .cart-item-image {
         padding: 1rem 0;
+    }
+
+    .cart-headings>div {
+        border-right: 0;
+        border-bottom: var(--shop-border);
+    }
+
+    .product-quant {
+        margin: 0;
+    }
+
+    .cart-headings {
+        border-bottom: 0;
     }
 }
 
