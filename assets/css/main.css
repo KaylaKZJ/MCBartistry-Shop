@@ -1296,12 +1296,16 @@ input[type=number] {
     display: none;
 }
 
+.cart-payment img {
+    max-width: 100px;
+}
+
 .payment-message {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 0;
+    padding: 4rem 2rem;
 }
 
 .payment-message h3 {
@@ -1312,7 +1316,11 @@ input[type=number] {
     color: var(--dark-grey);
     font-size: 0.9rem;
     margin-top: 1rem;
+    text-align: center;
+}
 
+.payment-message p span {
+    font-weight: 600;
 }
 
 .payment-message button {

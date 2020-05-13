@@ -4,8 +4,8 @@ const deliveryFee = 180;
 // CART UI
 
 // Cart Steps
-$(".cart-checkout .cart-button-next, .cart-checkout .cart-button-next").click(() => {
-    $("html").scrollTop(0)
+$(".cart-container .cart-button-next, .cart-container .cart-button-prev").click(() => {
+    $(document).scrollTop(0)
 })
 
 
@@ -26,7 +26,8 @@ $(".cart-shipping .cart-button-next").click(() => {
     }
 
     // Set Name
-    $(".payment-message span").html($("#shipping-form input[name='name_first']").val());
+    $(".payment-message h3 span").html($("#shipping-form input[name='name_first']").val());
+    $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html()}`);
 });
 
 $(".cart-shipping .cart-button-prev").click(() => {
