@@ -4,6 +4,11 @@ const deliveryFee = 180;
 // CART UI
 
 // Cart Steps
+$(".cart-checkout .cart-button-next, .cart-checkout .cart-button-next").click(() => {
+    $("html").scrollTop(0)
+})
+
+
 $(".cart-checkout .cart-button-next").click(() => {
     $(".cart-checkout").removeClass("active");
     $(".cart-shipping").addClass("active");
