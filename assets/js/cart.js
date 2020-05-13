@@ -156,7 +156,6 @@ const updateCartQuantity = () => {
     for (let i = 1; i <= cartSize; i++) {
         productCode = $(`#cart-item-${i}`).attr("data-product-code");
         productQuant = $(`#cart-item-${i} .product-quant span`).html();
-        console.log(productCode, productQuant)
         currentCart.forEach(cartItem => {
             if (cartItem.code === productCode) {
                 cartItem.quantity = productQuant

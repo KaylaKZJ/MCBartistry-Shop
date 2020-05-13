@@ -11,7 +11,6 @@ const loadShopProducts = () => {
             products = response.data;
 
             products.forEach(product => {
-                console.log(product)
                 if (!brandsList.includes(product.brand)) {
                     brandsList.push(product.brand)
                 }
@@ -112,8 +111,6 @@ const loadProduct = () => {
 
 // Filter products
 const filterProducts = (filterType) => {
-    console.log(filterType);
-
     let shopSize = $(".shop-grid .shop-product").length;
 
     if (filterType === "brand") {
