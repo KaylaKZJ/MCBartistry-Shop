@@ -103,9 +103,6 @@
         border-bottom: var(--shop-border);
     }
 
-    .product-quant {
-        margin: 0;
-    }
 
     .cart-headings {
         border-bottom: 0;

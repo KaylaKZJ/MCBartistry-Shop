@@ -278,7 +278,7 @@ const loadCart = () => {
                                 <p>R <span>${product.price}</span>.00</p>
                             </div>
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
-                                <div class="product-quant">
+                                <div class="product-quant mr-0">
                                     <i class="far fa-minus quant-minus"></i>
                                     <span>${currentCart[count-1].quantity}</span>
                                     <i class="far fa-plus quant-plus"></i>
