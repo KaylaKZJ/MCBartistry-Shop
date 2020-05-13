@@ -94,8 +94,7 @@
     }
 
     .cart-item-image img {
-        /* width: auto;
-        max-width: 20%; */
+        width: 20%;
     }
 
     .cart-item-image {

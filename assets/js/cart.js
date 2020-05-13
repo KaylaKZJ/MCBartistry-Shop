@@ -268,7 +268,7 @@ const loadCart = () => {
                         `
                         <div class="col-md-12 cart-item" id="cart-item-${count}" data-product-code="${product.code}">
                             <div class="col-md-1  cart-item-image">
-                                <img src="${product.productThumbnailUrl}" class="img-fluid" alt="">
+                                <img src="${product.productThumbnailUrl}" alt="">
                             </div>
                             <div class="col-md-4 col-lg-3 cart-item-name">
                                 <p>${product.brand}</p>
