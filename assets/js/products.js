@@ -98,8 +98,13 @@ const loadProduct = () => {
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
             $(".product-info").attr("data-product-price", product.price);
-            $(".product-image img").attr("src", product.productImageUrls[0])
-            hideLoader()
+            $(".product-image img").attr("src", product.productImageUrls[0]);
+
+            $('meta[name=description]').remove();
+            $('head').append(`<meta name="description" content="${product.brief}">`);
+            hideLoader();
+
+
         });
 }
 
