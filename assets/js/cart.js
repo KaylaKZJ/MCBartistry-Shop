@@ -1,4 +1,5 @@
 // Handling any cart related logic
+
 const deliveryFee = 180;
 
 // CART UI
@@ -239,6 +240,7 @@ const removeCartItem = (code) => {
     checkCartEmpty();
     updateCartCount();
 
+    // Adjust Cart Item ID's
     const cartSize = $(".cart-checkout-grid .cart-item").length;
     for (let i = 1; i <= cartSize; i++) {
         $(`.cart-checkout-grid .cart-item:nth-child(${i}`).attr("id", `cart-item-${i}`)

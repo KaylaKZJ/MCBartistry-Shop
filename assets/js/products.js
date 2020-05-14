@@ -107,8 +107,6 @@ const loadProduct = () => {
         });
 }
 
-// Isotype Init
-
 // Filter products
 const filterProducts = (filterType) => {
     let shopSize = $(".shop-grid .shop-product").length;
