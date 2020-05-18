@@ -273,7 +273,7 @@ const loadCart = () => {
                             </div>
                             <div class="col-md-4 col-lg-3 cart-item-name">
                                 <p>${product.brand}</p>
-                                <a target="blank" href="./product.html#${product.code}"5>${product.name}</a>
+                                <a target="blank" href="./product.html#${product.code}">${product.name}</a>
                             </div>
                             <div class="col-md-2 col-sm-4 col-6  cart-item-price">
                                 <p>R <span>${product.price}</span>.00</p>
