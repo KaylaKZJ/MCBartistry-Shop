@@ -94,7 +94,8 @@ $(document).on("click", ".cart-item-remove i", function () {
     let cartItemCode = $(this).closest(".cart-item").attr("id");
     $(`#${cartItemCode}`).remove();
     $(`#${cartItemCode}`).next(".cart-item-divider").remove();
-    removeCartItem(cartItemCode)
+    removeCartItem(cartItemCode);
+    calculateCartTotal();
 });
 
 
@@ -318,7 +319,5 @@ const sendPayment = () => {
     $("#shipping-form input[name='amount']").val(parseInt($(".cart-checkout-total span").html()));
     $("#shipping-form input[name='merchant_id']").val("10792194");
     $("#shipping-form input[name='merchant_key']").val("iuxisxf1u1g7d");
-
     $("#shipping-form").submit();
-
 }
