@@ -341,7 +341,6 @@ const sendPayment = () => {
         })
         .then(response => {
             if (response.status === 201) {
-                hideLoader()
                 $("#shipping-form ").submit();
             } else {
                 notify("Error Processing your transaction. Please contact Support")
