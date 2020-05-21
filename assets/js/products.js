@@ -88,6 +88,12 @@ const loadProduct = () => {
 
             // Insert Product Details
             document.title = product.name;
+            $('head').append(`<meta name="description" content="${product.brief}"/>`);
+            $('head').append(`<meta property="og:url" content="https://shop.mcbartistry.com/product.html#${ product.code}"/>`);
+            $('head').append(`<meta property="og:title" content="${product.name}" />`);
+            $('head').append(`<meta property="og:description" content="${product.brief}"/>`);
+
+
             $(".product-container").attr("data-product-code", product.code)
             $(".product-brand").html(product.brand)
             $(".product-name").html(`${product.name} <span>|</span> <span>${product.size}</span> `)
