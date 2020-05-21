@@ -306,6 +306,7 @@ const loadCart = () => {
 
 
 const sendPayment = () => {
+    $(".loader").fadeIn();
     const deliveryAddress =
         $("#shipping-form input[name='adress_1']").val() + "," +
         $("#shipping-form input[name='adress_2']").val() + ", " +
@@ -319,5 +320,33 @@ const sendPayment = () => {
     $("#shipping-form input[name='amount']").val(parseInt($(".cart-checkout-total span").html()));
     $("#shipping-form input[name='merchant_id']").val("10792194");
     $("#shipping-form input[name='merchant_key']").val("iuxisxf1u1g7d");
-    $("#shipping-form").submit();
+
+    const orderToSave = {
+        email_address: $("#shipping-form [name='email_address']").val(),
+        first_name: $("#shipping-form [name='name_first']").val(),
+        last_name: $("#shipping-form [name='name_last']").val(),
+        delivery_address: deliveryAddress,
+        delivery_notes: $("#shipping-form input[name='custom_str3']").val(),
+        phone_number: $("#shipping-form [name='cell_number']").val(),
+        cart_items: localStorage.getItem("cart"),
+        amount_gross: parseInt($(".cart-checkout-total span").html())
+    }
+
+    console.log(orderToSave)
+
+    axios({
+            method: "post",
+            url: `${api_url}/orders/confirmation`,
+            data: orderToSave
+        })
+        .then(response => {
+            if (response.status === 201) {
+                hideLoader()
+                $("#shipping-form ").submit();
+            } else {
+                notify("Error Processing your transaction. Please contact Support")
+            }
+        })
+        .catch(err => console.log(err));
+
 }
