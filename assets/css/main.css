@@ -899,7 +899,6 @@ footer a:hover {
 
 .product-quant {
     border: 1px solid var(--medium-grey);
-    padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
     transition: 0.3s ease;
     -webkit-transition: 0.3s ease;
@@ -928,6 +927,7 @@ footer a:hover {
     -moz-transition: 0.3s ease;
     -ms-transition: 0.3s ease;
     -o-transition: 0.3s ease;
+    padding: 0.75rem;
 }
 
 
