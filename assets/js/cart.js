@@ -160,7 +160,7 @@ const updateCartQuantity = () => {
         productQuant = $(`#cart-item-${i} .product-quant span`).html();
         currentCart.forEach(cartItem => {
             if (cartItem.code === productCode) {
-                cartItem.quantity = productQuant
+                cartItem.q = productQuant
             }
         });
     }
@@ -194,7 +194,7 @@ const addToCart = () => {
     // Create Product to add
     let product = {
         code: $(".product-container").attr("data-product-code"),
-        quantity: $(".product-quant span").html(),
+        q: $(".product-quant span").html(),
     }
 
     // Add to LocalStorage
@@ -282,12 +282,12 @@ const loadCart = () => {
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
                                 <div class="product-quant mr-0">
                                     <i class="far fa-minus quant-minus"></i>
-                                    <span>${currentCart[count-1].quantity}</span>
+                                    <span>${currentCart[count-1].q}</span>
                                     <i class="far fa-plus quant-plus"></i>
                                 </div>
                             </div>
                             <div class="col-md-2 col-sm-4 col-12 cart-item-total">
-                                <p>R <span>${product.price* currentCart[count-1].quantity}</span>.00</p>
+                                <p>R <span>${product.price* currentCart[count-1].q}</span>.00</p>
                             </div>
                             <div class="col-md-1 cart-item-remove">
                                 <i class="fal fa-times"></i>
