@@ -111,7 +111,14 @@
                         <h6>R <span></span>.00</h6>
                     </div>
                 </div>
-
+                <div class="col-12">
+                    <p class="col-12 collection-message">
+                        If you'd rather collect your order from the MCBartistry Studio, you can do so in the next step
+                        and
+                        your delivery fee will be
+                        waived.
+                    </p>
+                </div>
                 <div class="col-12 cart-button cart-button-next">
                     <p>Next Step</p>
                     <i class="far fa-angle-right"></i>
@@ -123,7 +130,26 @@
             <!-- Cart Shipping -->
             <div class="row cart-shipping">
 
-                <div class="col-10 offset-1 cart-shipping-form">
+                <div class="shipping-choice col-12">
+                    <h4>How would you like to receive your product?</h4>
+                    <div>
+                        <div class="shipping-choice-select active" id="shipping-choice-delivery">
+                            <span>
+                                <i class="far fa-check"></i>
+                            </span>
+                            <p>Delivery</p>
+                        </div>
+                        <div class="shipping-choice-select" id="shipping-choice-collection">
+                            <span>
+                                <i class="far fa-check"></i>
+                            </span>
+                            <p>Collection</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Form -->
+                <div class="col-10 offset-1 cart-shipping-form active">
                     <form id="shipping-form" autocomplete="off" class="needs-validation" novalidate
                         action="https://www.payfast.co.za/eng/process" method="POST">
                         <div class="row">
@@ -210,6 +236,56 @@
                         <input type="hidden" name="custom_str3" value="">
                     </form>
                 </div>
+
+                <!-- Collection Form -->
+                <div class="col-10 offset-1 cart-shipping-form">
+                    <form id="collection-form" autocomplete="off" class="needs-validation" novalidate
+                        action="https://www.payfast.co.za/eng/process" method="POST">
+                        <div class="row">
+                            <div class="col-md-6 form-element">
+                                <label>First Name</label>
+                                <input type="text" name="name_first" placeholder="First Name" required>
+                                <div class="invalid-feedback">
+                                    Please enter your first name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-element">
+                                <label>Last Name</label>
+                                <input type="text" name="name_last" placeholder="Last Name" required>
+                                <div class="invalid-feedback">
+                                    Please enter your last name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-element">
+                                <label>Email Address</label>
+                                <input type="email" name="email_address" placeholder="Email Address" required>
+                                <div class="invalid-feedback">
+                                    Please a valid email.
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-element">
+                                <label>Phone Number</label>
+                                <input type="tel" name="cell_number" placeholder="Phone Number" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid phone number.
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="merchant_id" value="">
+                        <input type="hidden" name="merchant_key" value="">
+                        <input type="hidden" name="return_url" value="http://www.shop.mcbartistry.com/success.html">
+                        <input type="hidden" name="cancel_url" value="http://www.shop.mcbartistry.com/cart.html">
+                        <input type="hidden" name="item_name" value="MCBartistry Cart">
+                        <input type="hidden" name="item_description" value="">
+                        <input type="hidden" name="amount" value="">
+                        <input type="hidden" name="custom_str1" value="">
+                        <input type="hidden" name="custom_str2" value="">
+                        <input type="hidden" name="custom_str3" value="">
+                    </form>
+                </div>
+
                 <div class=" col-md-6 cart-button cart-button-prev">
                     <i class="far fa-angle-left"></i>
                     <p>Previous Step</p>
@@ -224,8 +300,9 @@
             <div class="row cart-payment">
 
                 <div class="col-12 payment-message">
-                    <h3>Almost There <span>Arno</span>...</h3>
+                    <h3>Almost There <span></span>...</h3>
                     <p>Click the button below to pay <span></span> securely through Payfast.</p>
+                    <p class="delivery-waived mt-0 mb-1">The Delivery fee of R 180 has been waived</p>
                     <img src="./assets/images/logos/payfast.png" alt="">
                     <button class="my-button" onclick="sendPayment()">Pay Now</button>
                 </div>

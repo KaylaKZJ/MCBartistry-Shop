@@ -19,7 +19,8 @@ $(".cart-checkout .cart-button-next").click(() => {
 
 $(".cart-shipping .cart-button-next").click(() => {
     // validate form before payment
-    if (validateCartForm() !== false) {
+    let form = $(".cart-shipping-form.active form").attr("id")
+    if (validateCartForm(form) !== false) {
         $(".cart-shipping").removeClass("active");
         $(".cart-payment").addClass("active");
         $(".cart-headings>div").removeClass("active");
@@ -27,8 +28,16 @@ $(".cart-shipping .cart-button-next").click(() => {
     }
 
     // Set Name
-    $(".payment-message h3 span").html($("#shipping-form input[name='name_first']").val());
-    $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html()}`);
+    $(".payment-message h3 span").html($(`#${form} input[name='name_first']`).val());
+
+    if (form === "collection-form") {
+        // Remove delivery fee & display message
+        $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html() - deliveryFee}`);
+        $(".payment-message .delivery-waived").show()
+    } else {
+        $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html()}`);
+        $(".payment-message .delivery-waived").hide();
+    }
 });
 
 $(".cart-shipping .cart-button-prev").click(() => {
@@ -56,6 +65,26 @@ $(".form-element input, .form-element textarea").focusout(function () {
         $(this).removeClass("hide-placeholder")
     }
 });
+
+
+// Shipping Choice
+
+$(".shipping-choice-select").click(function () {
+    $(".shipping-choice-select").removeClass("active")
+    $(this).addClass("active");
+    let choice = $(this).attr("id")
+    showShippingChoice(choice);
+})
+
+const showShippingChoice = (choice) => {
+    $(".cart-shipping-form").removeClass("active");
+    if (choice === "shipping-choice-delivery") {
+        $("#shipping-form").parent().addClass("active");
+    }
+    if (choice === "shipping-choice-collection") {
+        $("#collection-form").parent().addClass("active");
+    }
+}
 
 //Adjust Totals by Quantity
 $(document).on("click", ".cart-item .product-quant .quant-minus", function () {
@@ -112,9 +141,9 @@ const notifyCart = (inCartAlready, product) => {
 
 }
 
-const validateCartForm = () => {
+const validateCartForm = (formToValidate) => {
     'use strict';
-    let form = document.getElementById("shipping-form")
+    let form = document.getElementById(formToValidate)
     if (form.checkValidity() === false) {
         console.log("Validation Fail");
         event.preventDefault();
@@ -307,29 +336,46 @@ const loadCart = () => {
 
 const sendPayment = () => {
     $(".loader").fadeIn();
-    const deliveryAddress =
-        $("#shipping-form input[name='adress_1']").val() + "," +
-        $("#shipping-form input[name='adress_2']").val() + ", " +
-        $("#shipping-form input[name='city']").val() + ", " +
-        $("#shipping-form input[name='postcode']").val();
 
-    $("#shipping-form input[name='item_description']").val(`${localStorage.getItem("cart")}`);
-    $("#shipping-form input[name='custom_str2']").val(deliveryAddress);
-    $("#shipping-form input[name='custom_str3']").val($("#shipping-form textarea[name='delivery_notes']").val());
-    $("#shipping-form input[name='amount']").val(parseInt($(".cart-checkout-total span").html()));
-    $("#shipping-form input[name='merchant_id']").val("10792194");
-    $("#shipping-form input[name='merchant_key']").val("iuxisxf1u1g7d");
+    let formToSubmit = $(".cart-shipping-form.active form").attr("id")
+
+    let deliveryAddress;
+    let deliveryNotes = "";
+    let amount;
+    if (formToSubmit === "collection-form") {
+        deliveryAddress = "Collection";
+        deliveryNotes = "Collection"
+        amount = parseInt($(".cart-checkout-total span").html()) - 180;
+
+    } else {
+        deliveryAddress =
+            $("#shipping-form input[name='adress_1']").val() + "," +
+            $("#shipping-form input[name='adress_2']").val() + ", " +
+            $("#shipping-form input[name='city']").val() + ", " +
+            $("#shipping-form input[name='postcode']").val();
+
+        deliveryNotes = $(`${formToSubmit} textarea[name='delivery_notes']`).val();
+        amount = parseInt($(".cart-checkout-total span").html());
+    }
+
+
+    $(`#${formToSubmit} input[name='item_description']`).val(`${localStorage.getItem("cart")}`);
+    $(`#${formToSubmit} input[name='custom_str2']`).val(deliveryAddress);
+    $(`#${formToSubmit} input[name='custom_str3']`).val();
+    $(`#${formToSubmit} input[name='merchant_id']`).val("10792194");
+    $(`#${formToSubmit} input[name='merchant_key']`).val("iuxisxf1u1g7d");
+    $(`#${formToSubmit} input[name='amount']`).val(amount);
 
     const orderToSave = {
-        merchant_id: $("#shipping-form input[name='merchant_id']").val(),
-        email_address: $("#shipping-form [name='email_address']").val(),
-        name_first: $("#shipping-form [name='name_first']").val(),
-        name_last: $("#shipping-form [name='name_last']").val(),
+        merchant_id: $(`#${formToSubmit} input[name='merchant_id']`).val(),
+        email_address: $(`#${formToSubmit} [name='email_address']`).val(),
+        name_first: $(`#${formToSubmit} [name='name_first']`).val(),
+        name_last: $(`#${formToSubmit} [name='name_last']`).val(),
         delivery_address: deliveryAddress,
-        delivery_notes: $("#shipping-form input[name='custom_str3']").val(),
-        cell_number: $("#shipping-form [name='cell_number']").val(),
+        delivery_notes: deliveryNotes,
+        cell_number: $(`#${formToSubmit} [name='cell_number']`).val(),
         cart_items: JSON.parse(localStorage.getItem("cart")),
-        amount_gross: $("#shipping-form input[name='amount']").val()
+        amount_gross: amount
     }
 
     console.log(orderToSave)
@@ -341,8 +387,8 @@ const sendPayment = () => {
         })
         .then(response => {
             if (response.status === 201) {
-                $("#shipping-form input[name='custom_str1']").val(response.data.order_number);
-                $("#shipping-form ").submit();
+                $(`#${formToSubmit} input[name='custom_str1']`).val(response.data.order_number);
+                $(`#${formToSubmit}`).submit();
             } else {
                 notify("Error Processing your transaction. Please contact Support")
             }
