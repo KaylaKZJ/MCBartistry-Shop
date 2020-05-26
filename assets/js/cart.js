@@ -160,7 +160,7 @@ const updateCartQuantity = () => {
         productQuant = $(`#cart-item-${i} .product-quant span`).html();
         currentCart.forEach(cartItem => {
             if (cartItem.code === productCode) {
-                cartItem.q = productQuant
+                cartItem.quantity = productQuant
             }
         });
     }
@@ -194,7 +194,7 @@ const addToCart = () => {
     // Create Product to add
     let product = {
         code: $(".product-container").attr("data-product-code"),
-        q: $(".product-quant span").html(),
+        quantity: $(".product-quant span").html(),
     }
 
     // Add to LocalStorage
@@ -282,12 +282,12 @@ const loadCart = () => {
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
                                 <div class="product-quant mr-0">
                                     <i class="far fa-minus quant-minus"></i>
-                                    <span>${currentCart[count-1].q}</span>
+                                    <span>${currentCart[count-1].quantity}</span>
                                     <i class="far fa-plus quant-plus"></i>
                                 </div>
                             </div>
                             <div class="col-md-2 col-sm-4 col-12 cart-item-total">
-                                <p>R <span>${product.price* currentCart[count-1].q}</span>.00</p>
+                                <p>R <span>${product.price* currentCart[count-1].quantity}</span>.00</p>
                             </div>
                             <div class="col-md-1 cart-item-remove">
                                 <i class="fal fa-times"></i>
@@ -314,7 +314,6 @@ const sendPayment = () => {
         $("#shipping-form input[name='postcode']").val();
 
     $("#shipping-form input[name='item_description']").val(`${localStorage.getItem("cart")}`);
-    $("#shipping-form input[name='custom_str1']").val($("#shipping-form input[name='cell_number']").val());
     $("#shipping-form input[name='custom_str2']").val(deliveryAddress);
     $("#shipping-form input[name='custom_str3']").val($("#shipping-form textarea[name='delivery_notes']").val());
     $("#shipping-form input[name='amount']").val(parseInt($(".cart-checkout-total span").html()));
@@ -322,14 +321,15 @@ const sendPayment = () => {
     $("#shipping-form input[name='merchant_key']").val("iuxisxf1u1g7d");
 
     const orderToSave = {
+        merchant_id: $("#shipping-form input[name='merchant_id']").val(),
         email_address: $("#shipping-form [name='email_address']").val(),
-        first_name: $("#shipping-form [name='name_first']").val(),
-        last_name: $("#shipping-form [name='name_last']").val(),
+        name_first: $("#shipping-form [name='name_first']").val(),
+        name_last: $("#shipping-form [name='name_last']").val(),
         delivery_address: deliveryAddress,
         delivery_notes: $("#shipping-form input[name='custom_str3']").val(),
-        phone_number: $("#shipping-form [name='cell_number']").val(),
-        cart_items: localStorage.getItem("cart"),
-        amount_gross: parseInt($(".cart-checkout-total span").html())
+        cell_number: $("#shipping-form [name='cell_number']").val(),
+        cart_items: JSON.parse(localStorage.getItem("cart")),
+        amount_gross: $("#shipping-form input[name='amount']").val()
     }
 
     console.log(orderToSave)
@@ -341,6 +341,7 @@ const sendPayment = () => {
         })
         .then(response => {
             if (response.status === 201) {
+                $("#shipping-form input[name='custom_str1']").val(response.data.order_number);
                 $("#shipping-form ").submit();
             } else {
                 notify("Error Processing your transaction. Please contact Support")
