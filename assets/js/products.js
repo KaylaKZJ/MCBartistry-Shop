@@ -18,13 +18,16 @@ const loadShopProducts = () => {
                     typesList.push(product.type)
                 }
 
+                let productThumbnail = product.productThumbnailUrl;
+                productThumbnail = productThumbnail.replace("upload/", "upload/w_200/f_auto/");
+
                 // Insert Products
                 $(".shop-grid .row").append(
                     `
                 <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}"
                 >
                 <div class="shop-product-image">
-                    <img class="img-fluid" src="${product.productThumbnailUrl}" alt="">
+                    <img class="img-fluid" src="${productThumbnail}" alt="">
                     </div>
                     <p class="shop-product-brand">
                         ${product.brand}
@@ -103,7 +106,10 @@ const loadProduct = () => {
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
             $(".product-info").attr("data-product-price", product.price);
-            $(".product-image img").attr("src", product.productImageUrls[0]);
+
+            let image = product.productImageUrls[0];
+            image = image.replace("upload/", "upload/w_300/f_auto/");
+            $(".product-image img").attr("src", image);
 
             $('meta[name=description]').remove();
             $('head').append(`<meta name="description" content="${product.brief}">`);
