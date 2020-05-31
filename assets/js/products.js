@@ -19,7 +19,7 @@ const loadShopProducts = () => {
                 }
 
                 let productThumbnail = product.productThumbnailUrl;
-                productThumbnail = productThumbnail.replace("upload/", "upload/w_200/f_auto/");
+                productThumbnail = productThumbnail.replace("upload/", "upload/f_auto/");
 
                 // Insert Products
                 $(".shop-grid .row").append(
@@ -108,7 +108,7 @@ const loadProduct = () => {
             $(".product-info").attr("data-product-price", product.price);
 
             let image = product.productImageUrls[0];
-            image = image.replace("upload/", "upload/w_300/f_auto/");
+            image = image.replace("upload/", "upload/f_auto/");
             $(".product-image img").attr("src", image);
 
             $('meta[name=description]').remove();
