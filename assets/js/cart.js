@@ -1,6 +1,6 @@
 // Handling any cart related logic
 
-const deliveryFee = 180;
+const deliveryFee = 150;
 
 // CART UI
 
@@ -30,14 +30,7 @@ $(".cart-shipping .cart-button-next").click(() => {
     // Set Name
     $(".payment-message h3 span").html($(`#${form} input[name='name_first']`).val());
 
-    if (form === "collection-form") {
-        // Remove delivery fee & display message
-        $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html() - deliveryFee}`);
-        $(".payment-message .delivery-waived").show()
-    } else {
-        $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html()}`);
-        $(".payment-message .delivery-waived").hide();
-    }
+    $(".payment-message p span").html(`R ${$(".cart-checkout-total span").html()}`);
 });
 
 $(".cart-shipping .cart-button-prev").click(() => {
@@ -66,25 +59,6 @@ $(".form-element input, .form-element textarea").focusout(function () {
     }
 });
 
-
-// Shipping Choice
-
-$(".shipping-choice-select").click(function () {
-    $(".shipping-choice-select").removeClass("active")
-    $(this).addClass("active");
-    let choice = $(this).attr("id")
-    showShippingChoice(choice);
-})
-
-const showShippingChoice = (choice) => {
-    $(".cart-shipping-form").removeClass("active");
-    if (choice === "shipping-choice-delivery") {
-        $("#shipping-form").parent().addClass("active");
-    }
-    if (choice === "shipping-choice-collection") {
-        $("#collection-form").parent().addClass("active");
-    }
-}
 
 //Adjust Totals by Quantity
 $(document).on("click", ".cart-item .product-quant .quant-minus", function () {
@@ -311,12 +285,12 @@ const loadCart = () => {
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
                                 <div class="product-quant mr-0">
                                     <i class="far fa-minus quant-minus"></i>
-                                    <span>${currentCart[count-1].quantity}</span>
+                                    <span>${currentCart[count - 1].quantity}</span>
                                     <i class="far fa-plus quant-plus"></i>
                                 </div>
                             </div>
                             <div class="col-md-2 col-sm-4 col-12 cart-item-total">
-                                <p>R <span>${product.price* currentCart[count-1].quantity}</span>.00</p>
+                                <p>R <span>${product.price * currentCart[count - 1].quantity}</span>.00</p>
                             </div>
                             <div class="col-md-1 cart-item-remove">
                                 <i class="fal fa-times"></i>
@@ -338,25 +312,15 @@ const sendPayment = () => {
     $(".loader").fadeIn();
 
     let formToSubmit = $(".cart-shipping-form.active form").attr("id")
+    deliveryAddress =
+        $("#shipping-form input[name='adress_1']").val() + "," +
+        $("#shipping-form input[name='adress_2']").val() + ", " +
+        $("#shipping-form input[name='city']").val() + ", " +
+        $("#shipping-form input[name='postcode']").val();
 
-    let deliveryAddress;
-    let deliveryNotes = "";
-    let amount;
-    if (formToSubmit === "collection-form") {
-        deliveryAddress = "Collection";
-        deliveryNotes = "Collection"
-        amount = parseInt($(".cart-checkout-total span").html()) - 180;
+    deliveryNotes = $(`${formToSubmit} textarea[name='delivery_notes']`).val();
+    amount = parseInt($(".cart-checkout-total span").html());
 
-    } else {
-        deliveryAddress =
-            $("#shipping-form input[name='adress_1']").val() + "," +
-            $("#shipping-form input[name='adress_2']").val() + ", " +
-            $("#shipping-form input[name='city']").val() + ", " +
-            $("#shipping-form input[name='postcode']").val();
-
-        deliveryNotes = $(`${formToSubmit} textarea[name='delivery_notes']`).val();
-        amount = parseInt($(".cart-checkout-total span").html());
-    }
 
 
     $(`#${formToSubmit} input[name='item_description']`).val(`${localStorage.getItem("cart")}`);
@@ -381,10 +345,10 @@ const sendPayment = () => {
     console.log(orderToSave)
 
     axios({
-            method: "post",
-            url: `${api_url}/orders/confirmation`,
-            data: orderToSave
-        })
+        method: "post",
+        url: `${api_url}/orders/confirmation`,
+        data: orderToSave
+    })
         .then(response => {
             if (response.status === 201) {
                 $(`#${formToSubmit} input[name='custom_str1']`).val(response.data.order_number);
