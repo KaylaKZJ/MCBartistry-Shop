@@ -20,12 +20,12 @@ const loadShopProducts = () => {
                     typesList.push(product.type)
                 }
                 if (!needsList.includes(product.need)) {
-                    if (product.need !== undefined) {
+                    if (product.need !== undefined && product.need !== "") {
                         needsList.push(product.need)
                     }
                 }
                 if (!rangeList.includes(product.range)) {
-                    if (product.range !== undefined) {
+                    if (product.range !== undefined && product.range !== "") {
                         rangeList.push(product.range)
                     }
                 }
