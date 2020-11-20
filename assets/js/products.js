@@ -6,6 +6,8 @@ let grid;
 const loadShopProducts = () => {
     let brandsList = [];
     let typesList = [];
+    let needsList = [];
+    let rangeList = [];
     axios.get(`${api_url}/products`)
         .then(response => {
             products = response.data;
@@ -17,6 +19,16 @@ const loadShopProducts = () => {
                 if (!typesList.includes(product.type)) {
                     typesList.push(product.type)
                 }
+                if (!needsList.includes(product.need)) {
+                    if (product.need !== undefined) {
+                        needsList.push(product.need)
+                    }
+                }
+                if (!rangeList.includes(product.range)) {
+                    if (product.range !== undefined) {
+                        rangeList.push(product.range)
+                    }
+                }
 
                 let productThumbnail = product.productThumbnailUrl;
                 productThumbnail = productThumbnail.replace("upload/", "upload/f_auto/");
@@ -24,7 +36,7 @@ const loadShopProducts = () => {
                 // Insert Products
                 $(".shop-grid .row").append(
                     `
-                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}"
+                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}" data-product-need="${product.need}" data-product-range="${product.range}"
                 >
                 <div class="shop-product-image">
                     <img class="img-fluid" src="${productThumbnail}" alt="">
@@ -55,7 +67,7 @@ const loadShopProducts = () => {
                 )
             })
 
-            // Insert Brands
+            // Insert Types
             typesList.forEach(type => {
                 $("#filter-type ul").append(
                     `<li>
@@ -63,6 +75,30 @@ const loadShopProducts = () => {
                             <i class="fas fa-check"></i>
                         </div>
                         <p class="">${type}</p>
+                    </li> `
+                )
+            });
+
+            // Insert Needs
+            needsList.forEach(need => {
+                $("#filter-need ul").append(
+                    `<li>
+                        <div class="custom-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="">${need}</p>
+                    </li> `
+                )
+            });
+
+            // Insert Range
+            rangeList.forEach(range => {
+                $("#filter-range ul").append(
+                    `<li>
+                        <div class="custom-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="">${range}</p>
                     </li> `
                 )
             })
@@ -92,7 +128,7 @@ const loadProduct = () => {
             // Insert Product Details
             document.title = product.name;
             $('head').append(`<meta name="description" content="${product.brief}"/>`);
-            $('head').append(`<meta property="og:url" content="https://shop.mcbartistry.com/product.html#${ product.code}"/>`);
+            $('head').append(`<meta property="og:url" content="https://shop.mcbartistry.com/product.html#${product.code}"/>`);
             $('head').append(`<meta property="og:title" content="${product.name}" />`);
             $('head').append(`<meta property="og:description" content="${product.brief}"/>`);
 
@@ -165,6 +201,53 @@ const filterProducts = (filterType) => {
                 let productType = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-type").toLowerCase();
                 if (!activeTypeFilters.includes(productType)) {
                     $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-type");
+                }
+            }
+        }
+
+    }
+
+    if (filterType === "need") {
+        let filterNeedCount = $("#filter-need li").length
+        let activeNeedFilter = [];
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-need");
+
+        // Get all active filter sizes
+        for (let i = 1; i <= filterNeedCount; i++) {
+            if ($(`#filter-need li:nth-child(${i})`).hasClass("active")) {
+                activeNeedFilter.push($(`#filter-need li:nth-child(${i}) p`).html().toLowerCase());
+            }
+        }
+
+        // hide product if at least one size doesn't match active size filter
+        for (let i = 1; i <= shopSize; i++) {
+            if (activeNeedFilter.length > 0) {
+                let productNeed = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-need").toLowerCase();
+                if (!activeNeedFilter.includes(productNeed)) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-need");
+                }
+            }
+        }
+    }
+
+    if (filterType === "range") {
+        let filterRangeCount = $("#filter-range li").length
+        let activeRangeFilter = [];
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-range");
+
+        // Get all active filter sizes
+        for (let i = 1; i <= filterRangeCount; i++) {
+            if ($(`#filter-range li:nth-child(${i})`).hasClass("active")) {
+                activeRangeFilter.push($(`#filter-range li:nth-child(${i}) p`).html().toLowerCase());
+            }
+        }
+
+        // hide product if at least one size doesn't match active size filter
+        for (let i = 1; i <= shopSize; i++) {
+            if (activeRangeFilter.length > 0) {
+                let productRange = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-range").toLowerCase();
+                if (!activeRangeFilter.includes(productRange)) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-range");
                 }
             }
         }

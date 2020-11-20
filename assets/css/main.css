@@ -672,13 +672,11 @@ footer a:hover {
 
 .filter-hide-brand,
 .filter-hide-type,
+.filter-hide-need,
+.filter-hide-range,
 .filter-hide-price {
     display: none;
 }
-
-
-
-
 
 /* Product */
 
