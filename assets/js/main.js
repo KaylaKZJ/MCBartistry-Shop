@@ -1,7 +1,7 @@
 // GENERAL
 
-const api_url = "http://localhost:3000";
-// const api_url = "https://mcb-shop-backend.herokuapp.com";
+// const api_url = "http://localhost:3000";
+const api_url = "https://mcb-shop-backend.herokuapp.com";
 
 
 // Navbar 
