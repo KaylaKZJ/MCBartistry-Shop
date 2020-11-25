@@ -674,6 +674,7 @@ footer a:hover {
 .filter-hide-type,
 .filter-hide-need,
 .filter-hide-range,
+.filter-hide-concern,
 .filter-hide-price {
     display: none;
 }

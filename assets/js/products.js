@@ -8,6 +8,7 @@ const loadShopProducts = () => {
     let typesList = [];
     let needsList = [];
     let rangeList = [];
+    let concernsList = [];
     axios.get(`${api_url}/products`)
         .then(response => {
             products = response.data;
@@ -29,6 +30,11 @@ const loadShopProducts = () => {
                         rangeList.push(product.range)
                     }
                 }
+                if (!concernsList.includes(product.concern)) {
+                    if (product.concern !== undefined && product.concern !== "") {
+                        concernsList.push(product.concern)
+                    }
+                }
 
                 let productThumbnail = product.productThumbnailUrl;
                 productThumbnail = productThumbnail.replace("upload/", "upload/f_auto/");
@@ -36,7 +42,7 @@ const loadShopProducts = () => {
                 // Insert Products
                 $(".shop-grid .row").append(
                     `
-                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}" data-product-need="${product.need}" data-product-range="${product.range}"
+                <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}" data-product-need="${product.need}" data-product-range="${product.range}" data-product-concern="${product.concern}"
                 >
                 <div class="shop-product-image">
                     <img class="img-fluid" src="${productThumbnail}" alt="">
@@ -99,6 +105,18 @@ const loadShopProducts = () => {
                             <i class="fas fa-check"></i>
                         </div>
                         <p class="">${range}</p>
+                    </li> `
+                )
+            })
+
+            // Insert Concern
+            concernsList.forEach(concern => {
+                $("#filter-concern ul").append(
+                    `<li>
+                        <div class="custom-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="">${concern}</p>
                     </li> `
                 )
             })
@@ -251,7 +269,29 @@ const filterProducts = (filterType) => {
                 }
             }
         }
+    }
 
+    if (filterType === "concern") {
+        let filterConcernCount = $("#filter-concern li").length
+        let activeConcernFilter = [];
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-concern");
+
+        // Get all active filter sizes
+        for (let i = 1; i <= filterConcernCount; i++) {
+            if ($(`#filter-concern li:nth-child(${i})`).hasClass("active")) {
+                activeConcernFilter.push($(`#filter-concern li:nth-child(${i}) p`).html().toLowerCase());
+            }
+        }
+
+        // hide product if at least one size doesn't match active size filter
+        for (let i = 1; i <= shopSize; i++) {
+            if (activeConcernFilter.length > 0) {
+                let productConcern = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-concern").toLowerCase();
+                if (!activeConcernFilter.includes(productConcern)) {
+                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-concern");
+                }
+            }
+        }
     }
 
 
