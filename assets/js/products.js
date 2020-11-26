@@ -162,6 +162,8 @@ const loadProduct = () => {
             if (product.discount) {
                 productPrice = Math.round(product.price * (100 - product.discount) / 100);
                 $(".product-price p").html(`${product.discount}% OFF`)
+            } else {
+                $(".product-price p").hide()
             }
             $(".product-price span").html(productPrice)
             $(".product-info").attr("data-product-price", productPrice);
