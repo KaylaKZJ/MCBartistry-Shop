@@ -39,12 +39,20 @@ const loadShopProducts = () => {
                 let productThumbnail = product.productThumbnailUrl;
                 productThumbnail = productThumbnail.replace("upload/", "upload/f_auto/");
 
+
+                // Discount
+                let productPrice = product.price;
+                if (product.discount) {
+                    productPrice = Math.round(product.price * (100 - product.discount) / 100);
+                }
+
                 // Insert Products
                 $(".shop-grid .row").append(
                     `
                 <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}" data-product-need="${product.need}" data-product-range="${product.range}" data-product-concern="${product.concern}"
                 >
                 <div class="shop-product-image">
+                    ${product.discount ? `<div class="shop-product-discount">${product.discount}% OFF</div>` : ""}
                     <img class="img-fluid" src="${productThumbnail}" alt="">
                     </div>
                     <p class="shop-product-brand">
@@ -54,7 +62,7 @@ const loadShopProducts = () => {
                         ${product.name} | <span>${product.size}</span>
                     </h5>
                     <p class="shop-product-price">
-                        R ${product.price}
+                        R ${productPrice}
                     </p>
                 </a>
                 `
@@ -150,23 +158,28 @@ const loadProduct = () => {
             $('head').append(`<meta property="og:title" content="${product.name}" />`);
             $('head').append(`<meta property="og:description" content="${product.brief}"/>`);
 
+            let productPrice = product.price;
+            if (product.discount) {
+                productPrice = Math.round(product.price * (100 - product.discount) / 100);
+                $(".product-price p").html(`${product.discount}% OFF`)
+            }
+            $(".product-price span").html(productPrice)
+            $(".product-info").attr("data-product-price", productPrice);
 
             $(".product-container").attr("data-product-code", product.code)
             $(".product-brand").html(product.brand)
-            $(".product-name").html(`${product.name} <span>|</span> <span>${product.size}</span> `)
-            $(".product-price span").html(product.price)
+            $(".product-name").html(`${product.name} <span>|</span > <span>${product.size}</span> `)
             $(".product-type").html(product.type)
             $(".product-brief").html(product.brief)
             $(".product-description").html(product.description);
             $(".product-use").html(product.use);
-            $(".product-info").attr("data-product-price", product.price);
 
             let image = product.productImageUrls[0];
             image = image.replace("upload/", "upload/f_auto/");
             $(".product-image img").attr("src", image);
 
             $('meta[name=description]').remove();
-            $('head').append(`<meta name="description" content="${product.brief}">`);
+            $('head').append(`< meta name = "description" content = "${product.brief}" > `);
             hideLoader();
 
 
@@ -180,21 +193,21 @@ const filterProducts = (filterType) => {
     if (filterType === "brand") {
         let filterBrandCount = $("#filter-brand li").length
         let activeBrandFilters = [];
-        $(`.shop-grid .shop-product`).removeClass("filter-hide-brand");
+        $(`.shop - grid.shop - product`).removeClass("filter-hide-brand");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterBrandCount; i++) {
-            if ($(`#filter-brand li:nth-child(${i})`).hasClass("active")) {
-                activeBrandFilters.push($(`#filter-brand li:nth-child(${i}) p`).html().toLowerCase());
+            if ($(`#filter - brand li: nth - child(${i})`).hasClass("active")) {
+                activeBrandFilters.push($(`#filter - brand li: nth - child(${i}) p`).html().toLowerCase());
             }
         }
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeBrandFilters.length > 0) {
-                let productBrand = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-brand").toLowerCase()
+                let productBrand = $(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-brand").toLowerCase()
                 if (!activeBrandFilters.includes(productBrand)) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-brand");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-brand");
                 }
             }
         }
@@ -204,21 +217,21 @@ const filterProducts = (filterType) => {
     if (filterType === "type") {
         let filterTypeCount = $("#filter-type li").length
         let activeTypeFilters = [];
-        $(`.shop-grid .shop-product`).removeClass("filter-hide-type");
+        $(`.shop - grid.shop - product`).removeClass("filter-hide-type");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterTypeCount; i++) {
-            if ($(`#filter-type li:nth-child(${i})`).hasClass("active")) {
-                activeTypeFilters.push($(`#filter-type li:nth-child(${i}) p`).html().toLowerCase());
+            if ($(`#filter - type li: nth - child(${i})`).hasClass("active")) {
+                activeTypeFilters.push($(`#filter - type li: nth - child(${i}) p`).html().toLowerCase());
             }
         }
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeTypeFilters.length > 0) {
-                let productType = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-type").toLowerCase();
+                let productType = $(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-type").toLowerCase();
                 if (!activeTypeFilters.includes(productType)) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-type");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-type");
                 }
             }
         }
@@ -228,21 +241,21 @@ const filterProducts = (filterType) => {
     if (filterType === "need") {
         let filterNeedCount = $("#filter-need li").length
         let activeNeedFilter = [];
-        $(`.shop-grid .shop-product`).removeClass("filter-hide-need");
+        $(`.shop - grid.shop - product`).removeClass("filter-hide-need");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterNeedCount; i++) {
-            if ($(`#filter-need li:nth-child(${i})`).hasClass("active")) {
-                activeNeedFilter.push($(`#filter-need li:nth-child(${i}) p`).html().toLowerCase());
+            if ($(`#filter - need li: nth - child(${i})`).hasClass("active")) {
+                activeNeedFilter.push($(`#filter - need li: nth - child(${i}) p`).html().toLowerCase());
             }
         }
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeNeedFilter.length > 0) {
-                let productNeed = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-need").toLowerCase();
+                let productNeed = $(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-need").toLowerCase();
                 if (!activeNeedFilter.includes(productNeed)) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-need");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-need");
                 }
             }
         }
@@ -251,21 +264,21 @@ const filterProducts = (filterType) => {
     if (filterType === "range") {
         let filterRangeCount = $("#filter-range li").length
         let activeRangeFilter = [];
-        $(`.shop-grid .shop-product`).removeClass("filter-hide-range");
+        $(`.shop - grid.shop - product`).removeClass("filter-hide-range");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterRangeCount; i++) {
-            if ($(`#filter-range li:nth-child(${i})`).hasClass("active")) {
-                activeRangeFilter.push($(`#filter-range li:nth-child(${i}) p`).html().toLowerCase());
+            if ($(`#filter - range li: nth - child(${i})`).hasClass("active")) {
+                activeRangeFilter.push($(`#filter - range li: nth - child(${i}) p`).html().toLowerCase());
             }
         }
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeRangeFilter.length > 0) {
-                let productRange = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-range").toLowerCase();
+                let productRange = $(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-range").toLowerCase();
                 if (!activeRangeFilter.includes(productRange)) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-range");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-range");
                 }
             }
         }
@@ -274,21 +287,21 @@ const filterProducts = (filterType) => {
     if (filterType === "concern") {
         let filterConcernCount = $("#filter-concern li").length
         let activeConcernFilter = [];
-        $(`.shop-grid .shop-product`).removeClass("filter-hide-concern");
+        $(`.shop - grid.shop - product`).removeClass("filter-hide-concern");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterConcernCount; i++) {
-            if ($(`#filter-concern li:nth-child(${i})`).hasClass("active")) {
-                activeConcernFilter.push($(`#filter-concern li:nth-child(${i}) p`).html().toLowerCase());
+            if ($(`#filter - concern li: nth - child(${i})`).hasClass("active")) {
+                activeConcernFilter.push($(`#filter - concern li: nth - child(${i}) p`).html().toLowerCase());
             }
         }
 
         // hide product if at least one size doesn't match active size filter
         for (let i = 1; i <= shopSize; i++) {
             if (activeConcernFilter.length > 0) {
-                let productConcern = $(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-concern").toLowerCase();
+                let productConcern = $(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-concern").toLowerCase();
                 if (!activeConcernFilter.includes(productConcern)) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-concern");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-concern");
                 }
             }
         }
@@ -305,9 +318,9 @@ const filterProducts = (filterType) => {
 
             // hide product if at least one size doesn't match active size filter
             for (let i = 1; i <= shopSize; i++) {
-                let productPrice = parseInt($(`.shop-grid .shop-product:nth-child(${i})`).attr("data-product-price"));
+                let productPrice = parseInt($(`.shop - grid.shop - product: nth - child(${i})`).attr("data-product-price"));
                 if (productPrice < priceMin || productPrice > priceMax) {
-                    $(`.shop-grid .shop-product:nth-child(${i})`).addClass("filter-hide-price");
+                    $(`.shop - grid.shop - product: nth - child(${i})`).addClass("filter-hide-price");
                 }
             }
         }

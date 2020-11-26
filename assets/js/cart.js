@@ -177,7 +177,8 @@ const showCart = () => {
 // Delete Cart
 const clearCart = () => {
     localStorage.clear();
-    updateCartCount()
+    updateCartCount();
+    loadCart()
 }
 
 // Update Cart Count
@@ -235,21 +236,21 @@ const checkIfItemInCart = (product) => {
 
 
 
-const removeCartItem = (code) => {
-    currentCart = JSON.parse(localStorage.getItem("cart"));
-    let productFound = currentCart.find(product => product.code === code);
-    index = currentCart[currentCart.indexOf(productFound)];
-    currentCart.splice(index, 1)
-    localStorage.setItem("cart", JSON.stringify(currentCart));
-    checkCartEmpty();
-    updateCartCount();
+// const removeCartItem = (code) => {
+//     currentCart = JSON.parse(localStorage.getItem("cart"));
+//     let productFound = currentCart.find(product => product.code === code);
+//     index = currentCart[currentCart.indexOf(productFound)];
+//     currentCart.splice(index, 1)
+//     localStorage.setItem("cart", JSON.stringify(currentCart));
+//     checkCartEmpty();
+//     updateCartCount();
 
-    // Adjust Cart Item ID's
-    const cartSize = $(".cart-checkout-grid .cart-item").length;
-    for (let i = 1; i <= cartSize; i++) {
-        $(`.cart-checkout-grid .cart-item:nth-child(${i}`).attr("id", `cart-item-${i}`)
-    }
-}
+//     // Adjust Cart Item ID's
+//     const cartSize = $(".cart-checkout-grid .cart-item").length;
+//     for (let i = 1; i <= cartSize; i++) {
+//         $(`.cart-checkout-grid .cart-item:nth-child(${i}`).attr("id", `cart-item-${i}`)
+//     }
+// }
 
 const loadCart = () => {
 
@@ -269,18 +270,23 @@ const loadCart = () => {
                     let productFound = products.find(product => product.code === code);
                     product = products[products.indexOf(productFound)]
                     count++;
+
+                    let productPrice = product.price;
+                    if (product.discount) {
+                        productPrice = Math.round(product.price * (100 - product.discount) / 100);
+                    }
                     $(".cart-checkout-grid").append(
                         `
                         <div class="col-md-12 cart-item" id="cart-item-${count}" data-product-code="${product.code}">
                             <div class="col-md-1  cart-item-image">
                                 <img src="${product.productThumbnailUrl}" class="img-fluid" alt="">
                             </div>
-                            <div class="col-md-4 col-lg-3 cart-item-name">
+                            <div class="col-md-5 col-lg-4 cart-item-name">
                                 <p>${product.brand}</p>
                                 <a target="blank" href="./product.html#${product.code}">${product.name}</a>
                             </div>
                             <div class="col-md-2 col-sm-4 col-6  cart-item-price">
-                                <p>R <span>${product.price}</span>.00</p>
+                                <p>R <span>${productPrice}</span>.00</p>
                             </div>
                             <div class="col-md-3 col-sm-4 col-6 cart-item-quant">
                                 <div class="product-quant mr-0">
@@ -290,10 +296,7 @@ const loadCart = () => {
                                 </div>
                             </div>
                             <div class="col-md-2 col-sm-4 col-12 cart-item-total">
-                                <p>R <span>${product.price * currentCart[count - 1].quantity}</span>.00</p>
-                            </div>
-                            <div class="col-md-1 cart-item-remove">
-                                <i class="fal fa-times"></i>
+                                <p>R <span>${productPrice * currentCart[count - 1].quantity}</span>.00</p>
                             </div>
                         </div>
                         `

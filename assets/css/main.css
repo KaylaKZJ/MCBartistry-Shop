@@ -750,6 +750,17 @@ footer a:hover {
     text-align: center;
 }
 
+.shop-product-discount {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--light-blue);
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    z-index: 10;
+}
+
 .shop-product:hover {
     text-decoration: none;
 }
@@ -888,6 +899,15 @@ footer a:hover {
     display: inline-block;
     border-left: 3px solid var(--light-blue);
     padding-left: 0.5rem;
+}
+
+.product-price p {
+    display: inline;
+    background-color: var(--light-blue);
+    font-size: 0.8rem;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .product-add-cart {
@@ -1051,6 +1071,14 @@ footer a:hover {
 
 .cart-headings>div.active i {
     display: inline;
+}
+
+.clear-cart-button {
+    border: none;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--light-blue);
+    color: white;
+    margin-bottom: 0.5rem;
 }
 
 .cart-button {
