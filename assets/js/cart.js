@@ -122,7 +122,7 @@ const validateCartForm = (formToValidate) => {
         console.log("Validation Fail");
         event.preventDefault();
         event.stopPropagation();
-        form.classList.add('was-validated');
+        alert("Please ensure you have completed all the fields.")
         return false
     } else {
         console.log("Validation Success")
