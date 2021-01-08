@@ -1441,6 +1441,19 @@ input[type=number] {
     margin-top: 1.5rem;
 }
 
+.payment-message h6 {
+    color: red;
+    text-align: center;
+    padding: 0 2rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.payment-message h6 span {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
 /* Empty Cart */
 
 .section-empty-cart {

@@ -52,7 +52,7 @@ const loadShopProducts = () => {
                 <a class="shop-product col-sm-6 col-md-4 col-lg-4" href="./product.html#${product.code}" data-product-brand="${product.brand}"  data-product-price="${product.price}" data-product-type="${product.type}" data-product-need="${product.need}" data-product-range="${product.range}" data-product-concern="${product.concern}"
                 >
                 <div class="shop-product-image">
-                    ${product.discount ? `<div class="shop-product-discount">${product.discount}% OFF</div>` :""}
+                    ${product.discount ? `<div class="shop-product-discount">${product.discount}% OFF</div>` : ""}
                     <img class="img-fluid" src="${productThumbnail}" alt="">
                     </div>
                     <p class="shop-product-brand">
@@ -200,7 +200,7 @@ const filterProducts = (filterType) => {
         // Get all active filter sizes
         for (let i = 1; i <= filterBrandCount; i++) {
             if ($(`#filter-brand li:nth-child(${i})`).hasClass("active")) {
-                activeBrandFilters.push($(`#filter brand li:nth-child(${i}) p`).html().toLowerCase());
+                activeBrandFilters.push($(`#filter-brand li:nth-child(${i}) p`).html().toLowerCase());
             }
         }
 
