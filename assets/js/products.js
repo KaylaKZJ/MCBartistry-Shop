@@ -195,7 +195,7 @@ const filterProducts = (filterType) => {
     if (filterType === "brand") {
         let filterBrandCount = $("#filter-brand li").length
         let activeBrandFilters = [];
-        $(`.shop -grid.shop -product`).removeClass("filter-hide-brand");
+        $(`.shop-grid .shop-product`).removeClass("filter-hide-brand");
 
         // Get all active filter sizes
         for (let i = 1; i <= filterBrandCount; i++) {
